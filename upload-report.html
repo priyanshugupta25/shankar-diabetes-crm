@@ -1,0 +1,1085 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shankar Diabetes CRM | Upload Report</title>
+
+    <!-- Meta -->
+    <meta
+      name="description"
+      content="Upload Lab Report - Shankar Diabetes CRM"
+    />
+    <meta property="og:title" content="Upload Lab Report - Shankar Diabetes CRM" />
+    <meta
+      property="og:description"
+      content="Upload and manage patient lab reports"
+    />
+    <meta property="og:type" content="Website" />
+    <link rel="shortcut icon" href="assets/images/favicon.svg" />
+    <link rel="stylesheet" href="assets/fonts/remix/remixicon.css" />
+    <link rel="stylesheet" href="assets/css/main.min.css" />
+
+    <!-- Scrollbar CSS -->
+    <link
+      rel="stylesheet"
+      href="assets/vendor/overlay-scroll/OverlayScrollbars.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <style>
+      .form-section-title {
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #0d6efd;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-top: 2rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 2px solid #e9ecef;
+        display: flex;
+        align-items: center;
+      }
+      .form-section-title i {
+        margin-right: 0.75rem;
+        font-size: 1.1rem;
+      }
+      .alert-info-box {
+        background-color: #e7f1ff;
+        border-left: 4px solid #0d6efd;
+        padding: 1rem;
+        border-radius: 4px;
+        margin-bottom: 1.5rem;
+        font-size: 0.9rem;
+        color: #004085;
+      }
+      .required-indicator {
+        color: #dc3545;
+        font-weight: 700;
+      }
+      .file-upload-area {
+        border: 2px dashed #0d6efd;
+        border-radius: 8px;
+        padding: 2rem;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background-color: #f8f9fa;
+      }
+      .file-upload-area:hover {
+        background-color: #e7f1ff;
+        border-color: #0056b3;
+      }
+      .file-upload-area.drag-over {
+        background-color: #d5e8f7;
+        border-color: #0056b3;
+        box-shadow: 0 0 10px rgba(13, 110, 253, 0.2);
+      }
+      .file-upload-icon {
+        font-size: 2.5rem;
+        color: #0d6efd;
+        margin-bottom: 1rem;
+      }
+      .file-upload-text {
+        color: #212529;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      .file-upload-hint {
+        color: #6c757d;
+        font-size: 0.9rem;
+      }
+      .file-input-hidden {
+        display: none;
+      }
+      .uploaded-files {
+        margin-top: 1rem;
+      }
+      .file-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.75rem;
+        background-color: #f8f9fa;
+        border-radius: 6px;
+        margin-bottom: 0.5rem;
+        border: 1px solid #e9ecef;
+      }
+      .file-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .file-icon {
+        font-size: 1.5rem;
+        color: #0d6efd;
+      }
+      .file-details {
+        display: flex;
+        flex-direction: column;
+      }
+      .file-name {
+        font-weight: 600;
+        color: #212529;
+      }
+      .file-size {
+        font-size: 0.85rem;
+        color: #6c757d;
+      }
+      .file-actions {
+        display: flex;
+        gap: 0.5rem;
+      }
+      .test-result-item {
+        background-color: #f8f9fa;
+        padding: 1rem;
+        border-radius: 6px;
+        margin-bottom: 1rem;
+        border: 1px solid #e9ecef;
+      }
+      .result-field-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+      .remove-result-btn {
+        text-align: right;
+      }
+      .patient-info-badge {
+        display: inline-block;
+        background-color: #e7f1ff;
+        color: #0d6efd;
+        padding: 0.5rem 1rem;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+      }
+      .reference-range {
+        font-size: 0.85rem;
+        color: #6c757d;
+        margin-top: 0.25rem;
+      }
+      .button-group {
+        display: flex;
+        gap: 0.75rem;
+        justify-content: flex-end;
+        margin-top: 2rem;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Page wrapper starts -->
+    <div class="page-wrapper">
+      <!-- App header starts -->
+      <div class="app-header d-flex align-items-center">
+        <!-- Toggle buttons starts -->
+        <div class="d-flex">
+          <button class="toggle-sidebar">
+            <i class="ri-menu-line"></i>
+          </button>
+          <button class="pin-sidebar">
+            <i class="ri-menu-line"></i>
+          </button>
+        </div>
+        <!-- Toggle buttons ends -->
+
+        <!-- App brand starts -->
+        <div class="app-brand ms-3">
+          <a href="index.html" class="d-lg-block d-none">
+            <img
+              src="assets/images/logo.svg"
+              class="logo"
+              alt="Shankar Diabetes CRM"
+            />
+          </a>
+          <a href="index.html" class="d-lg-none d-md-block">
+            <img
+              src="assets/images/logo-sm.svg"
+              class="logo"
+              alt="Shankar Diabetes CRM"
+            />
+          </a>
+        </div>
+        <!-- App brand ends -->
+
+        <!-- App header actions starts -->
+        <div class="header-actions">
+          <!-- Search container starts -->
+          <div class="search-container d-lg-block d-none mx-3">
+            <input
+              type="text"
+              class="form-control"
+              id="searchId"
+              placeholder="Search reports..."
+            />
+            <i class="ri-search-line"></i>
+          </div>
+          <!-- Search container ends -->
+
+          <!-- Header user settings starts -->
+          <div class="dropdown ms-2">
+            <a
+              id="userSettings"
+              class="dropdown-toggle d-flex align-items-center"
+              href="#!"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <div class="avatar-box">AS<span class="status busy"></span></div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end shadow-lg">
+              <div class="px-3 py-2">
+                <span class="small">Admin</span>
+                <h6 class="m-0">Dr. Anand Shankar</h6>
+              </div>
+              <div class="mx-3 my-2 d-grid">
+                <a href="login.html" class="btn btn-danger">Logout</a>
+              </div>
+            </div>
+          </div>
+          <!-- Header user settings ends -->
+        </div>
+        <!-- App header actions ends -->
+      </div>
+      <!-- App header ends -->
+
+      <!-- Main container starts -->
+      <div class="main-container">
+        <!-- Sidebar wrapper starts -->
+        <nav id="sidebar" class="sidebar-wrapper">
+          <!-- Sidebar profile starts -->
+          <div class="sidebar-profile">
+            <div class="m-0">
+              <h5 class="mb-1 profile-name text-nowrap text-truncate">
+                Dr. Anand Shankar
+              </h5>
+              <p class="m-0 small profile-name text-nowrap text-truncate">
+                Administrator
+              </p>
+            </div>
+          </div>
+          <!-- Sidebar profile ends -->
+
+          <!-- Sidebar menu starts -->
+          <div class="sidebarMenuScroll">
+            <ul class="sidebar-menu">
+              <li>
+                <a href="index.html">
+                  <i class="ri-home-6-line"></i>
+                  <span class="menu-text">Dashboard</span>
+                </a>
+              </li>
+              <li class="treeview">
+                <a href="#!">
+                  <i class="ri-heart-pulse-line"></i>
+                  <span class="menu-text">Patients</span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a href="patient-dashboard.html">Patient Dashboard</a>
+                  </li>
+                  <li>
+                    <a href="patients-list.html">Patients List</a>
+                  </li>
+                  <li>
+                    <a href="add-patient.html">Add Patient</a>
+                  </li>
+                  <li>
+                    <a href="edit-patient.html">Edit Patient</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="treeview">
+                <a href="#!">
+                  <i class="ri-calendar-todo-line"></i>
+                  <span class="menu-text">Appointments</span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a href="appointments.html">Appointments</a>
+                  </li>
+                  <li>
+                    <a href="appointments-list.html">Appointments List</a>
+                  </li>
+                  <li>
+                    <a href="book-appointment.html">Book Appointment</a>
+                  </li>
+                  <li>
+                    <a href="edit-appointment.html">Edit Appointment</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="treeview active current-page">
+                <a href="#!">
+                  <i class="ri-file-text-line"></i>
+                  <span class="menu-text">Reports</span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a href="reports.html">Reports</a>
+                  </li>
+                  <li>
+                    <a href="upload-report.html" class="active-sub">Upload Report</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="messaging.html">
+                  <i class="ri-message-3-line"></i>
+                  <span class="menu-text">WhatsApp Messages</span>
+                </a>
+              </li>
+              <li>
+                <a href="quiz.html">
+                  <i class="ri-game-line"></i>
+                  <span class="menu-text">Quiz Management</span>
+                </a>
+              </li>
+              <li>
+                <a href="video-consultation.html">
+                  <i class="ri-video-line"></i>
+                  <span class="menu-text">Video Consultations</span>
+                </a>
+              </li>
+              <li>
+                <a href="notices.html">
+                  <i class="ri-notification-line"></i>
+                  <span class="menu-text">Notices & Announcements</span>
+                </a>
+              </li>
+              <li>
+                <a href="blog.html">
+                  <i class="ri-article-line"></i>
+                  <span class="menu-text">Blog Management</span>
+                </a>
+              </li>
+              <li>
+                <a href="settings.html">
+                  <i class="ri-settings-5-line"></i>
+                  <span class="menu-text">Settings</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-- Sidebar menu ends -->
+
+          <!-- Sidebar contact starts -->
+          <div class="sidebar-contact">
+            <p class="fw-light mb-1 text-nowrap text-truncate">
+              Emergency Contact
+            </p>
+            <h5 class="m-0 lh-1 text-nowrap text-truncate">+91-9876543210</h5>
+            <i class="ri-phone-line"></i>
+          </div>
+          <!-- Sidebar contact ends -->
+        </nav>
+        <!-- Sidebar wrapper ends -->
+
+        <!-- App container starts -->
+        <div class="app-container">
+          <!-- App hero header starts -->
+          <div class="app-hero-header d-flex align-items-center">
+            <!-- Breadcrumb starts -->
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <i class="ri-home-8-line lh-1 pe-3 me-3 border-end"></i>
+                <a href="index.html">Home</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="reports.html">Reports</a>
+              </li>
+              <li class="breadcrumb-item text-primary" aria-current="page">
+                Upload Report
+              </li>
+            </ol>
+            <!-- Breadcrumb ends -->
+          </div>
+          <!-- App Hero header ends -->
+
+          <!-- App body starts -->
+          <div class="app-body">
+            <!-- Row starts -->
+            <div class="row gx-3">
+              <div class="col-sm-12">
+                <div class="card">
+                  <div class="card-header">
+                    <div>
+                      <h5 class="card-title mb-0">
+                        <i class="ri-file-upload-line me-2"></i>Upload Lab Report
+                      </h5>
+                      <small class="text-muted">Add new lab test results for patient diabetes management</small>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <!-- Alert for success/error messages -->
+                    <div id="alertContainer"></div>
+
+                    <!-- Info Box -->
+                    <div class="alert-info-box">
+                      <i class="ri-information-line me-2"></i>
+                      Upload lab reports in PDF or image format. All fields marked with <span class="required-indicator">*</span> are mandatory.
+                    </div>
+
+                    <!-- Upload Report Form -->
+                    <form id="uploadReportForm">
+                      
+                      <!-- PATIENT SELECTION SECTION -->
+                      <div class="form-section-title">
+                        <i class="ri-user-search-line"></i>Select Patient
+                      </div>
+
+                      <div class="row gx-3 mb-4">
+                        <div class="col-xxl-6 col-lg-8 col-sm-12">
+                          <div class="mb-3">
+                            <label class="form-label" for="patientSearch">
+                              Select Patient <span class="required-indicator">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              class="form-control form-control-lg"
+                              id="patientSearch"
+                              placeholder="Type patient name, ID, or phone..."
+                              autocomplete="off"
+                              required
+                            />
+                            <div class="patient-dropdown" id="patientDropdown"></div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <input type="hidden" id="selectedPatientId" name="selectedPatientId" required />
+                      
+                      <!-- Selected Patient Info -->
+                      <div id="patientInfoCard" style="display: none;">
+                        <div class="patient-info-badge" id="patientInfoDisplay">-</div>
+                      </div>
+
+                      <!-- REPORT DETAILS SECTION -->
+                      <div class="form-section-title">
+                        <i class="ri-file-text-line"></i>Report Details
+                      </div>
+
+                      <div class="row gx-3">
+                        <!-- Report Type -->
+                        <div class="col-xxl-3 col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                            <label class="form-label" for="reportType">
+                              Report Type <span class="required-indicator">*</span>
+                            </label>
+                            <select class="form-select" id="reportType" name="reportType" required>
+                              <option value="">Select Type</option>
+                              <option value="hba1c">HbA1c Test</option>
+                              <option value="fbs">Fasting Blood Sugar (FBS)</option>
+                              <option value="rbs">Random Blood Sugar (RBS)</option>
+                              <option value="lipid">Lipid Profile</option>
+                              <option value="kidney">Kidney Function Test</option>
+                              <option value="liver">Liver Function Test</option>
+                              <option value="complete">Complete Blood Count (CBC)</option>
+                              <option value="thyroid">Thyroid Function</option>
+                              <option value="other">Other</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <!-- Test Date -->
+                        <div class="col-xxl-3 col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                            <label class="form-label" for="testDate">
+                              Test Date <span class="required-indicator">*</span>
+                            </label>
+                            <input
+                              type="date"
+                              class="form-control"
+                              id="testDate"
+                              name="testDate"
+                              required
+                            />
+                          </div>
+                        </div>
+
+                        <!-- Lab Name -->
+                        <div class="col-xxl-3 col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                            <label class="form-label" for="labName">
+                              Lab/Hospital Name <span class="required-indicator">*</span>
+                            </label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="labName"
+                              name="labName"
+                              placeholder="e.g., Apollo Diagnostics"
+                              required
+                            />
+                          </div>
+                        </div>
+
+                        <!-- Reference Doctor -->
+                        <div class="col-xxl-3 col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                            <label class="form-label" for="doctorName">
+                              Reference Doctor
+                            </label>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="doctorName"
+                              name="doctorName"
+                              placeholder="Enter doctor name"
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- FILE UPLOAD SECTION -->
+                      <div class="form-section-title">
+                        <i class="ri-upload-cloud-line"></i>Upload Report File
+                      </div>
+
+                      <div class="mb-3">
+                        <label class="form-label">
+                          Report File <span class="required-indicator">*</span>
+                        </label>
+                        <div class="file-upload-area" id="fileUploadArea">
+                          <input
+                            type="file"
+                            id="reportFile"
+                            name="reportFile"
+                            class="file-input-hidden"
+                            accept=".pdf,.jpg,.jpeg,.png,.doc,.docx"
+                            required
+                          />
+                          <div class="file-upload-icon">
+                            <i class="ri-file-pdf-line"></i>
+                          </div>
+                          <div class="file-upload-text">
+                            Click to upload or drag and drop
+                          </div>
+                          <div class="file-upload-hint">
+                            PDF, JPG, PNG, DOC (Max 10MB)
+                          </div>
+                        </div>
+                        <div class="uploaded-files" id="uploadedFiles"></div>
+                      </div>
+
+                      <!-- TEST RESULTS SECTION -->
+                      <div class="form-section-title">
+                        <i class="ri-flask-line"></i>Test Results (Auto-extract from Report)
+                      </div>
+
+                      <div class="mb-3">
+                        <p class="text-muted">
+                          <i class="ri-information-line me-2"></i>
+                          Enter the key test values from the lab report. These will help in analysis and trend tracking.
+                        </p>
+                      </div>
+
+                      <!-- Dynamic Test Results Container -->
+                      <div id="testResultsContainer">
+                        <div class="test-result-item">
+                          <div class="result-field-group">
+                            <div>
+                              <label class="form-label">Test Parameter <span class="required-indicator">*</span></label>
+                              <input
+                                type="text"
+                                class="form-control test-parameter"
+                                placeholder="e.g., HbA1c, Blood Sugar"
+                                required
+                              />
+                            </div>
+                            <div>
+                              <label class="form-label">Value <span class="required-indicator">*</span></label>
+                              <input
+                                type="text"
+                                class="form-control test-value"
+                                placeholder="e.g., 7.5"
+                                required
+                              />
+                            </div>
+                            <div>
+                              <label class="form-label">Unit <span class="required-indicator">*</span></label>
+                              <input
+                                type="text"
+                                class="form-control test-unit"
+                                placeholder="e.g., %, mg/dL"
+                                required
+                              />
+                            </div>
+                            <div>
+                              <label class="form-label">Reference Range</label>
+                              <input
+                                type="text"
+                                class="form-control test-reference"
+                                placeholder="e.g., <5.7%"
+                              />
+                            </div>
+                          </div>
+                          <div class="remove-result-btn">
+                            <button type="button" class="btn btn-sm btn-outline-danger remove-result">
+                              <i class="ri-delete-bin-line me-1"></i>Remove
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="mb-3">
+                        <button type="button" class="btn btn-outline-primary" id="addMoreResults">
+                          <i class="ri-add-line me-2"></i>Add Another Result
+                        </button>
+                      </div>
+
+                      <!-- NOTES SECTION -->
+                      <div class="form-section-title">
+                        <i class="ri-chat-3-line"></i>Clinical Notes & Status
+                      </div>
+
+                      <div class="row gx-3">
+                        <!-- Report Status -->
+                        <div class="col-xxl-3 col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                            <label class="form-label" for="reportStatus">
+                              Report Status <span class="required-indicator">*</span>
+                            </label>
+                            <select class="form-select" id="reportStatus" name="reportStatus" required>
+                              <option value="">Select Status</option>
+                              <option value="normal">Normal</option>
+                              <option value="abnormal">Abnormal</option>
+                              <option value="critical">Critical</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <!-- Share with Patient -->
+                        <div class="col-xxl-3 col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                            <label class="form-label" for="shareWithPatient">
+                              Share Accessibility
+                            </label>
+                            <select class="form-select" id="shareWithPatient" name="shareWithPatient">
+                              <option value="private">Private (Only Doctor)</option>
+                              <option value="patient">Visible to Patient</option>
+                              <option value="family">Visible to Patient & Family</option>
+                            </select>
+                          </div>
+                        </div>
+
+                        <!-- Send Notification -->
+                        <div class="col-xxl-6 col-lg-4 col-sm-12">
+                          <div class="mb-3">
+                            <label class="form-label d-block">&nbsp;</label>
+                            <div class="form-check">
+                              <input
+                                type="checkbox"
+                                class="form-check-input"
+                                id="notifyPatient"
+                                name="notifyPatient"
+                                checked
+                              />
+                              <label class="form-check-label" for="notifyPatient">
+                                <i class="ri-notification-line me-2"></i>Notify patient when report is uploaded
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Clinical Notes -->
+                      <div class="mb-3">
+                        <label class="form-label" for="clinicalNotes">
+                          Clinical Notes & Observations
+                        </label>
+                        <textarea
+                          class="form-control"
+                          id="clinicalNotes"
+                          name="clinicalNotes"
+                          placeholder="Add any clinical observations, doctor's notes, or recommendations"
+                          rows="4"
+                        ></textarea>
+                      </div>
+
+                      <!-- RECOMMENDATIONS SECTION -->
+                      <div class="form-section-title">
+                        <i class="ri-lightbulb-line"></i>Recommendations & Follow-up
+                      </div>
+
+                      <div class="row gx-3">
+                        <!-- Recommendation -->
+                        <div class="col-sm-12">
+                          <div class="mb-3">
+                            <label class="form-label" for="recommendation">
+                              Doctor's Recommendation
+                            </label>
+                            <textarea
+                              class="form-control"
+                              id="recommendation"
+                              name="recommendation"
+                              placeholder="e.g., Increase medication dosage, Schedule follow-up appointment, Refer to specialist"
+                              rows="3"
+                            ></textarea>
+                          </div>
+                        </div>
+
+                        <!-- Follow-up Date -->
+                        <div class="col-xxl-3 col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                            <label class="form-label" for="followUpDate">
+                              Recommended Follow-up Date
+                            </label>
+                            <input
+                              type="date"
+                              class="form-control"
+                              id="followUpDate"
+                              name="followUpDate"
+                            />
+                          </div>
+                        </div>
+
+                        <!-- Follow-up Type -->
+                        <div class="col-xxl-3 col-lg-4 col-sm-6">
+                          <div class="mb-3">
+                            <label class="form-label" for="followUpType">
+                              Follow-up Type
+                            </label>
+                            <select class="form-select" id="followUpType" name="followUpType">
+                              <option value="">Select Type</option>
+                              <option value="in-clinic">In-Clinic Visit</option>
+                              <option value="video">Video Consultation</option>
+                              <option value="phone">Phone Consultation</option>
+                              <option value="repeat-test">Repeat Test</option>
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!-- Form Actions -->
+                      <div class="button-group">
+                        <a
+                          href="reports.html"
+                          class="btn btn-outline-secondary"
+                        >
+                          <i class="ri-close-line me-2"></i>Cancel
+                        </a>
+                        <button
+                          type="reset"
+                          class="btn btn-outline-secondary"
+                        >
+                          <i class="ri-refresh-line me-2"></i>Reset
+                        </button>
+                        <button
+                          type="submit"
+                          class="btn btn-primary"
+                          id="submitBtn"
+                        >
+                          <i class="ri-upload-cloud-line me-2"></i>Upload Report
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Row ends -->
+          </div>
+          <!-- App body ends -->
+
+          <!-- App footer starts -->
+          <div class="app-footer bg-white">
+            <span>© Shankar Diabetes CRM 2024. All rights reserved.</span>
+          </div>
+          <!-- App footer ends -->
+        </div>
+        <!-- App container ends -->
+      </div>
+      <!-- Main container ends -->
+    </div>
+    <!-- Page wrapper ends -->
+
+    <!-- Required jQuery first, then Bootstrap Bundle JS -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/moment.min.js"></script>
+
+    <!-- Overlay Scroll JS -->
+    <script src="assets/vendor/overlay-scroll/jquery.overlayScrollbars.min.js"></script>
+    <script src="assets/vendor/overlay-scroll/custom-scrollbar.js"></script>
+
+    <!-- Custom JS files -->
+    <script src="assets/js/custom.js"></script>
+
+    <!-- Upload Report Form Script -->
+    <script>
+      // Sample patient database
+      const patientsDatabase = [
+        {
+          id: "PID-001",
+          fullName: "Amit Sharma",
+          phone: "9876543210",
+          diabetesType: "Type 2"
+        },
+        {
+          id: "PID-002",
+          fullName: "Priya Singh",
+          phone: "9876543211",
+          diabetesType: "Type 2"
+        },
+        {
+          id: "PID-003",
+          fullName: "Rajesh Patel",
+          phone: "9876543212",
+          diabetesType: "Type 1"
+        },
+        {
+          id: "PID-004",
+          fullName: "Seema Kumari",
+          phone: "9876543213",
+          diabetesType: "Gestational"
+        },
+        {
+          id: "PID-005",
+          fullName: "Vikram Singh",
+          phone: "9876543214",
+          diabetesType: "Type 2"
+        }
+      ];
+
+      document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('uploadReportForm');
+        const patientSearch = document.getElementById('patientSearch');
+        const patientDropdown = document.getElementById('patientDropdown');
+        const selectedPatientIdField = document.getElementById('selectedPatientId');
+        const fileUploadArea = document.getElementById('fileUploadArea');
+        const reportFile = document.getElementById('reportFile');
+        const uploadedFiles = document.getElementById('uploadedFiles');
+        const addMoreResultsBtn = document.getElementById('addMoreResults');
+        const testResultsContainer = document.getElementById('testResultsContainer');
+        const testDateInput = document.getElementById('testDate');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // Set max date to today
+        const today = new Date().toISOString().split('T')[0];
+        testDateInput.setAttribute('max', today);
+
+        // Patient Search
+        patientSearch.addEventListener('input', function() {
+          const searchTerm = this.value.toLowerCase().trim();
+          
+          if (searchTerm.length < 2) {
+            patientDropdown.innerHTML = '';
+            patientDropdown.style.display = 'none';
+            return;
+          }
+
+          const filteredPatients = patientsDatabase.filter(patient => 
+            patient.fullName.toLowerCase().includes(searchTerm) ||
+            patient.id.toLowerCase().includes(searchTerm) ||
+            patient.phone.includes(searchTerm)
+          );
+
+          if (filteredPatients.length === 0) {
+            patientDropdown.innerHTML = '<div style="padding: 0.75rem; color: #6c757d;">No patients found</div>';
+          } else {
+            patientDropdown.innerHTML = filteredPatients.map(patient => `
+              <div class="patient-dropdown-item" data-patient-id="${patient.id}">
+                <div class="patient-name">${patient.fullName} (${patient.id})</div>
+                <div class="patient-details">${patient.phone} | ${patient.diabetesType}</div>
+              </div>
+            `).join('');
+
+            document.querySelectorAll('.patient-dropdown-item').forEach(item => {
+              item.addEventListener('click', function() {
+                const patientId = this.getAttribute('data-patient-id');
+                selectPatient(patientId);
+              });
+            });
+          }
+
+          patientDropdown.style.display = 'block';
+        });
+
+        function selectPatient(patientId) {
+          const patient = patientsDatabase.find(p => p.id === patientId);
+          if (!patient) return;
+
+          selectedPatientIdField.value = patientId;
+          patientSearch.value = patient.fullName;
+          patientDropdown.style.display = 'none';
+
+          document.getElementById('patientInfoCard').style.display = 'block';
+          document.getElementById('patientInfoDisplay').textContent = 
+            `✓ Selected: ${patient.fullName} (${patient.id}) - ${patient.diabetesType}`;
+        }
+
+        // File Upload
+        fileUploadArea.addEventListener('click', () => reportFile.click());
+
+        fileUploadArea.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          fileUploadArea.classList.add('drag-over');
+        });
+
+        fileUploadArea.addEventListener('dragleave', () => {
+          fileUploadArea.classList.remove('drag-over');
+        });
+
+        fileUploadArea.addEventListener('drop', (e) => {
+          e.preventDefault();
+          fileUploadArea.classList.remove('drag-over');
+          handleFiles(e.dataTransfer.files);
+        });
+
+        reportFile.addEventListener('change', (e) => {
+          handleFiles(e.target.files);
+        });
+
+        function handleFiles(files) {
+          uploadedFiles.innerHTML = '';
+          
+          for (let file of files) {
+            if (file.size > 10 * 1024 * 1024) {
+              showAlert('error', 'File size exceeds 10MB limit');
+              continue;
+            }
+
+            const fileSize = (file.size / 1024 / 1024).toFixed(2);
+            const fileItem = document.createElement('div');
+            fileItem.className = 'file-item';
+            fileItem.innerHTML = `
+              <div class="file-info">
+                <div class="file-icon">
+                  <i class="ri-file-pdf-line"></i>
+                </div>
+                <div class="file-details">
+                  <div class="file-name">${file.name}</div>
+                  <div class="file-size">${fileSize} MB</div>
+                </div>
+              </div>
+              <div class="file-actions">
+                <button type="button" class="btn btn-sm btn-outline-danger" onclick="this.parentElement.parentElement.remove()">
+                  <i class="ri-delete-bin-line"></i>
+                </button>
+              </div>
+            `;
+            uploadedFiles.appendChild(fileItem);
+          }
+        }
+
+        // Add More Results
+        addMoreResultsBtn.addEventListener('click', function() {
+          const resultItem = document.createElement('div');
+          resultItem.className = 'test-result-item';
+          resultItem.innerHTML = `
+            <div class="result-field-group">
+              <div>
+                <label class="form-label">Test Parameter <span class="required-indicator">*</span></label>
+                <input type="text" class="form-control test-parameter" placeholder="e.g., Blood Sugar" required />
+              </div>
+              <div>
+                <label class="form-label">Value <span class="required-indicator">*</span></label>
+                <input type="text" class="form-control test-value" placeholder="e.g., 150" required />
+              </div>
+              <div>
+                <label class="form-label">Unit <span class="required-indicator">*</span></label>
+                <input type="text" class="form-control test-unit" placeholder="e.g., mg/dL" required />
+              </div>
+              <div>
+                <label class="form-label">Reference Range</label>
+                <input type="text" class="form-control test-reference" placeholder="e.g., 80-130 mg/dL" />
+              </div>
+            </div>
+            <div class="remove-result-btn">
+              <button type="button" class="btn btn-sm btn-outline-danger remove-result">
+                <i class="ri-delete-bin-line me-1"></i>Remove
+              </button>
+            </div>
+          `;
+          testResultsContainer.appendChild(resultItem);
+
+          resultItem.querySelector('.remove-result').addEventListener('click', function() {
+            resultItem.remove();
+          });
+        });
+
+        // Remove result buttons
+        testResultsContainer.addEventListener('click', function(e) {
+          if (e.target.closest('.remove-result')) {
+            e.preventDefault();
+            e.target.closest('.test-result-item').remove();
+          }
+        });
+
+        // Form submission
+        form.addEventListener('submit', function(e) {
+          e.preventDefault();
+
+          if (!selectedPatientIdField.value) {
+            showAlert('error', 'Please select a patient');
+            return;
+          }
+
+          if (!form.checkValidity()) {
+            form.classList.add('was-validated');
+            return;
+          }
+
+          // Collect test results
+          const testResults = [];
+          document.querySelectorAll('.test-result-item').forEach(item => {
+            const parameter = item.querySelector('.test-parameter').value;
+            const value = item.querySelector('.test-value').value;
+            const unit = item.querySelector('.test-unit').value;
+            const reference = item.querySelector('.test-reference').value;
+
+            if (parameter && value && unit) {
+              testResults.push({ parameter, value, unit, reference });
+            }
+          });
+
+          const formData = {
+            patientId: selectedPatientIdField.value,
+            reportType: document.getElementById('reportType').value,
+            testDate: document.getElementById('testDate').value,
+            labName: document.getElementById('labName').value,
+            doctorName: document.getElementById('doctorName').value,
+            reportStatus: document.getElementById('reportStatus').value,
+            shareWithPatient: document.getElementById('shareWithPatient').value,
+            notifyPatient: document.getElementById('notifyPatient').checked,
+            testResults: testResults,
+            clinicalNotes: document.getElementById('clinicalNotes').value,
+            recommendation: document.getElementById('recommendation').value,
+            followUpDate: document.getElementById('followUpDate').value,
+            followUpType: document.getElementById('followUpType').value,
+            timestamp: new Date().toISOString()
+          };
+
+          console.log('Report Data:', formData);
+          showAlert('success', 'Report uploaded successfully! Redirecting...');
+
+          setTimeout(() => {
+            window.location.href = 'reports.html';
+          }, 2000);
+        });
+
+        function showAlert(type, message) {
+          const alertContainer = document.getElementById('alertContainer');
+          const alertClass = type === 'success' ? 'alert-success' : 'alert-danger';
+          const alertIcon = type === 'success' ? 'ri-checkbox-circle-line' : 'ri-error-warning-line';
+          
+          alertContainer.innerHTML = `
+            <div class="alert ${alertClass} alert-dismissible fade show" role="alert">
+              <i class="${alertIcon} me-2"></i>
+              ${message}
+              <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            </div>
+          `;
+
+          setTimeout(() => {
+            alertContainer.innerHTML = '';
+          }, 5000);
+        }
+      });
+    </script>
+  </body>
+</html>

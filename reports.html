@@ -1,0 +1,901 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Shankar Diabetes CRM | Reports</title>
+
+    <!-- Meta -->
+    <meta
+      name="description"
+      content="Lab Reports - Shankar Diabetes CRM"
+    />
+    <meta property="og:title" content="Lab Reports - Shankar Diabetes CRM" />
+    <meta
+      property="og:description"
+      content="Manage and view patient lab reports and test results"
+    />
+    <meta property="og:type" content="Website" />
+    <link rel="shortcut icon" href="assets/images/favicon.svg" />
+    <link rel="stylesheet" href="assets/fonts/remix/remixicon.css" />
+    <link rel="stylesheet" href="assets/css/main.min.css" />
+
+    <!-- Scrollbar CSS -->
+    <link
+      rel="stylesheet"
+      href="assets/vendor/overlay-scroll/OverlayScrollbars.min.css"
+    />
+
+    <!-- Custom CSS -->
+    <style>
+      .report-status-badge {
+        display: inline-block;
+        padding: 0.4rem 0.8rem;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        font-weight: 600;
+      }
+      .status-normal {
+        background-color: #d4edda;
+        color: #155724;
+      }
+      .status-abnormal {
+        background-color: #f8d7da;
+        color: #721c24;
+      }
+      .status-critical {
+        background-color: #f5c6cb;
+        color: #721c24;
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
+      }
+      .report-type-badge {
+        display: inline-block;
+        padding: 0.3rem 0.6rem;
+        background-color: #e7f1ff;
+        color: #0d6efd;
+        border-radius: 3px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        margin-right: 0.5rem;
+      }
+      .filter-section {
+        background-color: #f8f9fa;
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+      }
+      .filter-group {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+      }
+      .report-card {
+        border: 1px solid #e9ecef;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+        background-color: white;
+      }
+      .report-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-color: #dee2e6;
+      }
+      .report-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #e9ecef;
+        padding-bottom: 1rem;
+      }
+      .report-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: #212529;
+        margin: 0;
+      }
+      .report-meta {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+      .report-meta-item {
+        display: flex;
+        flex-direction: column;
+      }
+      .report-meta-label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: #6c757d;
+        text-transform: uppercase;
+        letter-spacing: 0.3px;
+        margin-bottom: 0.25rem;
+      }
+      .report-meta-value {
+        font-size: 0.95rem;
+        color: #212529;
+      }
+      .report-results {
+        background-color: #f8f9fa;
+        padding: 1rem;
+        border-radius: 6px;
+        margin-top: 1rem;
+      }
+      .result-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #e9ecef;
+      }
+      .result-item:last-child {
+        border-bottom: none;
+      }
+      .result-name {
+        font-weight: 500;
+        color: #212529;
+      }
+      .result-value {
+        font-weight: 600;
+        color: #0d6efd;
+        margin: 0 1rem;
+      }
+      .result-reference {
+        font-size: 0.85rem;
+        color: #6c757d;
+      }
+      .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+        margin-top: 1rem;
+      }
+      .empty-state {
+        text-align: center;
+        padding: 3rem 1rem;
+      }
+      .empty-state-icon {
+        font-size: 3rem;
+        color: #dee2e6;
+        margin-bottom: 1rem;
+      }
+      .empty-state-text {
+        color: #6c757d;
+        margin-bottom: 1rem;
+      }
+      .stats-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+      .stat-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        text-align: center;
+      }
+      .stat-card.blue {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+      }
+      .stat-card.green {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+      }
+      .stat-card.orange {
+        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+      }
+      .stat-number {
+        font-size: 2rem;
+        font-weight: 700;
+        display: block;
+        margin: 0.5rem 0;
+      }
+      .stat-label {
+        font-size: 0.85rem;
+        opacity: 0.9;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Page wrapper starts -->
+    <div class="page-wrapper">
+      <!-- App header starts -->
+      <div class="app-header d-flex align-items-center">
+        <!-- Toggle buttons starts -->
+        <div class="d-flex">
+          <button class="toggle-sidebar">
+            <i class="ri-menu-line"></i>
+          </button>
+          <button class="pin-sidebar">
+            <i class="ri-menu-line"></i>
+          </button>
+        </div>
+        <!-- Toggle buttons ends -->
+
+        <!-- App brand starts -->
+        <div class="app-brand ms-3">
+          <a href="index.html" class="d-lg-block d-none">
+            <img
+              src="assets/images/logo.svg"
+              class="logo"
+              alt="Shankar Diabetes CRM"
+            />
+          </a>
+          <a href="index.html" class="d-lg-none d-md-block">
+            <img
+              src="assets/images/logo-sm.svg"
+              class="logo"
+              alt="Shankar Diabetes CRM"
+            />
+          </a>
+        </div>
+        <!-- App brand ends -->
+
+        <!-- App header actions starts -->
+        <div class="header-actions">
+          <!-- Search container starts -->
+          <div class="search-container d-lg-block d-none mx-3">
+            <input
+              type="text"
+              class="form-control"
+              id="searchId"
+              placeholder="Search reports..."
+            />
+            <i class="ri-search-line"></i>
+          </div>
+          <!-- Search container ends -->
+
+          <!-- Header user settings starts -->
+          <div class="dropdown ms-2">
+            <a
+              id="userSettings"
+              class="dropdown-toggle d-flex align-items-center"
+              href="#!"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              <div class="avatar-box">AS<span class="status busy"></span></div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-end shadow-lg">
+              <div class="px-3 py-2">
+                <span class="small">Admin</span>
+                <h6 class="m-0">Dr. Anand Shankar</h6>
+              </div>
+              <div class="mx-3 my-2 d-grid">
+                <a href="login.html" class="btn btn-danger">Logout</a>
+              </div>
+            </div>
+          </div>
+          <!-- Header user settings ends -->
+        </div>
+        <!-- App header actions ends -->
+      </div>
+      <!-- App header ends -->
+
+      <!-- Main container starts -->
+      <div class="main-container">
+        <!-- Sidebar wrapper starts -->
+        <nav id="sidebar" class="sidebar-wrapper">
+          <!-- Sidebar profile starts -->
+          <div class="sidebar-profile">
+            <div class="m-0">
+              <h5 class="mb-1 profile-name text-nowrap text-truncate">
+                Dr. Anand Shankar
+              </h5>
+              <p class="m-0 small profile-name text-nowrap text-truncate">
+                Administrator
+              </p>
+            </div>
+          </div>
+          <!-- Sidebar profile ends -->
+
+          <!-- Sidebar menu starts -->
+          <div class="sidebarMenuScroll">
+            <ul class="sidebar-menu">
+              <li>
+                <a href="index.html">
+                  <i class="ri-home-6-line"></i>
+                  <span class="menu-text">Dashboard</span>
+                </a>
+              </li>
+              <li class="treeview">
+                <a href="#!">
+                  <i class="ri-heart-pulse-line"></i>
+                  <span class="menu-text">Patients</span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a href="patient-dashboard.html">Patient Dashboard</a>
+                  </li>
+                  <li>
+                    <a href="patients-list.html">Patients List</a>
+                  </li>
+                  <li>
+                    <a href="add-patient.html">Add Patient</a>
+                  </li>
+                  <li>
+                    <a href="edit-patient.html">Edit Patient</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="treeview">
+                <a href="#!">
+                  <i class="ri-calendar-todo-line"></i>
+                  <span class="menu-text">Appointments</span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a href="appointments.html">Appointments</a>
+                  </li>
+                  <li>
+                    <a href="appointments-list.html">Appointments List</a>
+                  </li>
+                  <li>
+                    <a href="book-appointment.html">Book Appointment</a>
+                  </li>
+                  <li>
+                    <a href="edit-appointment.html">Edit Appointment</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="treeview active current-page">
+                <a href="#!">
+                  <i class="ri-file-text-line"></i>
+                  <span class="menu-text">Reports</span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a href="reports.html" class="active-sub">Reports</a>
+                  </li>
+                  <li>
+                    <a href="upload-report.html">Upload Report</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="messaging.html">
+                  <i class="ri-message-3-line"></i>
+                  <span class="menu-text">WhatsApp Messages</span>
+                </a>
+              </li>
+              <li>
+                <a href="quiz.html">
+                  <i class="ri-game-line"></i>
+                  <span class="menu-text">Quiz Management</span>
+                </a>
+              </li>
+              <li>
+                <a href="video-consultation.html">
+                  <i class="ri-video-line"></i>
+                  <span class="menu-text">Video Consultations</span>
+                </a>
+              </li>
+              <li>
+                <a href="notices.html">
+                  <i class="ri-notification-line"></i>
+                  <span class="menu-text">Notices & Announcements</span>
+                </a>
+              </li>
+              <li>
+                <a href="blog.html">
+                  <i class="ri-article-line"></i>
+                  <span class="menu-text">Blog Management</span>
+                </a>
+              </li>
+              <li>
+                <a href="settings.html">
+                  <i class="ri-settings-5-line"></i>
+                  <span class="menu-text">Settings</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-- Sidebar menu ends -->
+
+          <!-- Sidebar contact starts -->
+          <div class="sidebar-contact">
+            <p class="fw-light mb-1 text-nowrap text-truncate">
+              Emergency Contact
+            </p>
+            <h5 class="m-0 lh-1 text-nowrap text-truncate">+91-9876543210</h5>
+            <i class="ri-phone-line"></i>
+          </div>
+          <!-- Sidebar contact ends -->
+        </nav>
+        <!-- Sidebar wrapper ends -->
+
+        <!-- App container starts -->
+        <div class="app-container">
+          <!-- App hero header starts -->
+          <div class="app-hero-header d-flex align-items-center">
+            <!-- Breadcrumb starts -->
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <i class="ri-home-8-line lh-1 pe-3 me-3 border-end"></i>
+                <a href="index.html">Home</a>
+              </li>
+              <li class="breadcrumb-item text-primary" aria-current="page">
+                Lab Reports
+              </li>
+            </ol>
+            <!-- Breadcrumb ends -->
+
+            <!-- Action Buttons -->
+            <div class="ms-auto d-lg-flex d-none gap-2">
+              <a href="upload-report.html" class="btn btn-primary">
+                <i class="ri-file-upload-line me-2"></i>Upload New Report
+              </a>
+            </div>
+          </div>
+          <!-- App Hero header ends -->
+
+          <!-- App body starts -->
+          <div class="app-body">
+            <!-- Statistics Cards -->
+            <div class="stats-cards">
+              <div class="stat-card">
+                <i class="ri-file-text-line" style="font-size: 2rem;"></i>
+                <span class="stat-number">247</span>
+                <span class="stat-label">Total Reports</span>
+              </div>
+              <div class="stat-card blue">
+                <i class="ri-checkbox-circle-line" style="font-size: 2rem;"></i>
+                <span class="stat-number">198</span>
+                <span class="stat-label">Normal Results</span>
+              </div>
+              <div class="stat-card orange">
+                <i class="ri-alert-line" style="font-size: 2rem;"></i>
+                <span class="stat-number">32</span>
+                <span class="stat-label">Abnormal Results</span>
+              </div>
+              <div class="stat-card green">
+                <i class="ri-calendar-line" style="font-size: 2rem;"></i>
+                <span class="stat-number">17</span>
+                <span class="stat-label">This Month</span>
+              </div>
+            </div>
+
+            <!-- Filter Section -->
+            <div class="filter-section">
+              <h6 class="mb-3">
+                <i class="ri-filter-line me-2"></i>Filter Reports
+              </h6>
+              <div class="filter-group">
+                <div>
+                  <label class="form-label">Report Type</label>
+                  <select class="form-select" id="filterReportType">
+                    <option value="">All Types</option>
+                    <option value="hba1c">HbA1c Test</option>
+                    <option value="fbs">Fasting Blood Sugar</option>
+                    <option value="lipid">Lipid Profile</option>
+                    <option value="kidney">Kidney Function</option>
+                    <option value="liver">Liver Function</option>
+                    <option value="complete">Complete Blood Count</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="form-label">Status</label>
+                  <select class="form-select" id="filterStatus">
+                    <option value="">All Status</option>
+                    <option value="normal">Normal</option>
+                    <option value="abnormal">Abnormal</option>
+                    <option value="critical">Critical</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="form-label">Date Range</label>
+                  <input type="date" class="form-control" id="filterDate" />
+                </div>
+                <div>
+                  <label class="form-label">Patient Name</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="filterPatient"
+                    placeholder="Search patient..."
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Reports List -->
+            <div id="reportsList">
+              <!-- Report Card 1 -->
+              <div class="report-card">
+                <div class="report-header">
+                  <div>
+                    <h5 class="report-title">HbA1c Test Report</h5>
+                    <small class="text-muted">Report ID: REP-2024-001</small>
+                  </div>
+                  <div>
+                    <span class="report-status-badge status-normal">Normal</span>
+                  </div>
+                </div>
+
+                <div class="report-meta">
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Patient</span>
+                    <span class="report-meta-value">Amit Sharma</span>
+                  </div>
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Patient ID</span>
+                    <span class="report-meta-value">PID-001</span>
+                  </div>
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Test Date</span>
+                    <span class="report-meta-value">15 Jan 2024</span>
+                  </div>
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Lab</span>
+                    <span class="report-meta-value">PathLabs India</span>
+                  </div>
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Doctor</span>
+                    <span class="report-meta-value">Dr. Anand Shankar</span>
+                  </div>
+                </div>
+
+                <div class="report-results">
+                  <div class="result-item">
+                    <div>
+                      <span class="report-type-badge">HbA1c</span>
+                      <span class="result-name">Glycated Hemoglobin</span>
+                    </div>
+                    <div class="result-value">7.2%</div>
+                    <div class="result-reference">Reference: &lt;5.7%</div>
+                  </div>
+                  <div class="result-item">
+                    <div>
+                      <span class="report-type-badge">Status</span>
+                      <span class="result-name">Diabetes Control</span>
+                    </div>
+                    <div class="result-value">Good</div>
+                    <div class="result-reference">Target: &lt;7%</div>
+                  </div>
+                </div>
+
+                <div class="action-buttons">
+                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">
+                    <i class="ri-eye-line me-1"></i>View
+                  </a>
+                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary">
+                    <i class="ri-download-line me-1"></i>Download
+                  </a>
+                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-info">
+                    <i class="ri-message-3-line me-1"></i>Send to Patient
+                  </a>
+                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-danger">
+                    <i class="ri-delete-bin-line me-1"></i>Delete
+                  </a>
+                </div>
+              </div>
+
+              <!-- Report Card 2 -->
+              <div class="report-card">
+                <div class="report-header">
+                  <div>
+                    <h5 class="report-title">Lipid Profile Test</h5>
+                    <small class="text-muted">Report ID: REP-2024-002</small>
+                  </div>
+                  <div>
+                    <span class="report-status-badge status-abnormal">Abnormal</span>
+                  </div>
+                </div>
+
+                <div class="report-meta">
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Patient</span>
+                    <span class="report-meta-value">Rajesh Patel</span>
+                  </div>
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Patient ID</span>
+                    <span class="report-meta-value">PID-003</span>
+                  </div>
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Test Date</span>
+                    <span class="report-meta-value">18 Jan 2024</span>
+                  </div>
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Lab</span>
+                    <span class="report-meta-value">Apollo Diagnostics</span>
+                  </div>
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Doctor</span>
+                    <span class="report-meta-value">Dr. Rajesh Patel</span>
+                  </div>
+                </div>
+
+                <div class="report-results">
+                  <div class="result-item">
+                    <div>
+                      <span class="report-type-badge">Total Cholesterol</span>
+                      <span class="result-name">Total Cholesterol</span>
+                    </div>
+                    <div class="result-value">245 mg/dL</div>
+                    <div class="result-reference">Reference: &lt;200 mg/dL</div>
+                  </div>
+                  <div class="result-item">
+                    <div>
+                      <span class="report-type-badge">LDL</span>
+                      <span class="result-name">LDL Cholesterol</span>
+                    </div>
+                    <div class="result-value">165 mg/dL</div>
+                    <div class="result-reference">Reference: &lt;100 mg/dL</div>
+                  </div>
+                  <div class="result-item">
+                    <div>
+                      <span class="report-type-badge">HDL</span>
+                      <span class="result-name">HDL Cholesterol</span>
+                    </div>
+                    <div class="result-value">35 mg/dL</div>
+                    <div class="result-reference">Reference: &gt;40 mg/dL</div>
+                  </div>
+                </div>
+
+                <div class="action-buttons">
+                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">
+                    <i class="ri-eye-line me-1"></i>View
+                  </a>
+                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary">
+                    <i class="ri-download-line me-1"></i>Download
+                  </a>
+                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-info">
+                    <i class="ri-message-3-line me-1"></i>Send to Patient
+                  </a>
+                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-danger">
+                    <i class="ri-delete-bin-line me-1"></i>Delete
+                  </a>
+                </div>
+              </div>
+
+              <!-- Report Card 3 -->
+              <div class="report-card">
+                <div class="report-header">
+                  <div>
+                    <h5 class="report-title">Kidney Function Test</h5>
+                    <small class="text-muted">Report ID: REP-2024-003</small>
+                  </div>
+                  <div>
+                    <span class="report-status-badge status-critical">Critical</span>
+                  </div>
+                </div>
+
+                <div class="report-meta">
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Patient</span>
+                    <span class="report-meta-value">Priya Singh</span>
+                  </div>
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Patient ID</span>
+                    <span class="report-meta-value">PID-002</span>
+                  </div>
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Test Date</span>
+                    <span class="report-meta-value">20 Jan 2024</span>
+                  </div>
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Lab</span>
+                    <span class="report-meta-value">Max Healthcare</span>
+                  </div>
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Doctor</span>
+                    <span class="report-meta-value">Dr. Priya Sharma</span>
+                  </div>
+                </div>
+
+                <div class="report-results">
+                  <div class="result-item">
+                    <div>
+                      <span class="report-type-badge">Creatinine</span>
+                      <span class="result-name">Creatinine Level</span>
+                    </div>
+                    <div class="result-value">2.8 mg/dL</div>
+                    <div class="result-reference">Reference: 0.6-1.2 mg/dL</div>
+                  </div>
+                  <div class="result-item">
+                    <div>
+                      <span class="report-type-badge">GFR</span>
+                      <span class="result-name">Glomerular Filtration Rate</span>
+                    </div>
+                    <div class="result-value">25 mL/min</div>
+                    <div class="result-reference">Reference: &gt;60 mL/min</div>
+                  </div>
+                  <div class="result-item">
+                    <div>
+                      <span class="report-type-badge">Status</span>
+                      <span class="result-name">Kidney Function</span>
+                    </div>
+                    <div class="result-value">Stage 4 CKD</div>
+                    <div class="result-reference">⚠️ Requires Immediate Attention</div>
+                  </div>
+                </div>
+
+                <div class="action-buttons">
+                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">
+                    <i class="ri-eye-line me-1"></i>View
+                  </a>
+                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary">
+                    <i class="ri-download-line me-1"></i>Download
+                  </a>
+                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-info">
+                    <i class="ri-message-3-line me-1"></i>Send to Patient
+                  </a>
+                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-danger">
+                    <i class="ri-delete-bin-line me-1"></i>Delete
+                  </a>
+                </div>
+              </div>
+
+              <!-- Report Card 4 -->
+              <div class="report-card">
+                <div class="report-header">
+                  <div>
+                    <h5 class="report-title">Complete Blood Count</h5>
+                    <small class="text-muted">Report ID: REP-2024-004</small>
+                  </div>
+                  <div>
+                    <span class="report-status-badge status-normal">Normal</span>
+                  </div>
+                </div>
+
+                <div class="report-meta">
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Patient</span>
+                    <span class="report-meta-value">Seema Kumari</span>
+                  </div>
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Patient ID</span>
+                    <span class="report-meta-value">PID-004</span>
+                  </div>
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Test Date</span>
+                    <span class="report-meta-value">22 Jan 2024</span>
+                  </div>
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Lab</span>
+                    <span class="report-meta-value">Fortis Diagnostics</span>
+                  </div>
+                  <div class="report-meta-item">
+                    <span class="report-meta-label">Doctor</span>
+                    <span class="report-meta-value">Dr. Anjali Gupta</span>
+                  </div>
+                </div>
+
+                <div class="report-results">
+                  <div class="result-item">
+                    <div>
+                      <span class="report-type-badge">WBC</span>
+                      <span class="result-name">White Blood Cells</span>
+                    </div>
+                    <div class="result-value">7.2 K/uL</div>
+                    <div class="result-reference">Reference: 4.5-11 K/uL</div>
+                  </div>
+                  <div class="result-item">
+                    <div>
+                      <span class="report-type-badge">RBC</span>
+                      <span class="result-name">Red Blood Cells</span>
+                    </div>
+                    <div class="result-value">4.8 M/uL</div>
+                    <div class="result-reference">Reference: 4.5-5.9 M/uL</div>
+                  </div>
+                </div>
+
+                <div class="action-buttons">
+                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">
+                    <i class="ri-eye-line me-1"></i>View
+                  </a>
+                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary">
+                    <i class="ri-download-line me-1"></i>Download
+                  </a>
+                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-info">
+                    <i class="ri-message-3-line me-1"></i>Send to Patient
+                  </a>
+                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-danger">
+                    <i class="ri-delete-bin-line me-1"></i>Delete
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- Empty State (hidden by default) -->
+            <div class="empty-state" id="emptyState" style="display: none;">
+              <div class="empty-state-icon">
+                <i class="ri-file-text-line"></i>
+              </div>
+              <h5 class="empty-state-text">No Reports Found</h5>
+              <p class="text-muted">No lab reports match your filters. Try adjusting your search criteria.</p>
+              <a href="upload-report.html" class="btn btn-primary">
+                <i class="ri-file-upload-line me-2"></i>Upload New Report
+              </a>
+            </div>
+          </div>
+          <!-- App body ends -->
+
+          <!-- App footer starts -->
+          <div class="app-footer bg-white">
+            <span>© Shankar Diabetes CRM 2024. All rights reserved.</span>
+          </div>
+          <!-- App footer ends -->
+        </div>
+        <!-- App container ends -->
+      </div>
+      <!-- Main container ends -->
+    </div>
+    <!-- Page wrapper ends -->
+
+    <!-- Required jQuery first, then Bootstrap Bundle JS -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/moment.min.js"></script>
+
+    <!-- Overlay Scroll JS -->
+    <script src="assets/vendor/overlay-scroll/jquery.overlayScrollbars.min.js"></script>
+    <script src="assets/vendor/overlay-scroll/custom-scrollbar.js"></script>
+
+    <!-- Custom JS files -->
+    <script src="assets/js/custom.js"></script>
+
+    <!-- Reports List Script -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Filter functionality
+        const filterReportType = document.getElementById('filterReportType');
+        const filterStatus = document.getElementById('filterStatus');
+        const filterDate = document.getElementById('filterDate');
+        const filterPatient = document.getElementById('filterPatient');
+        const searchId = document.getElementById('searchId');
+
+        // Add event listeners for filters
+        [filterReportType, filterStatus, filterDate, filterPatient, searchId].forEach(filter => {
+          filter.addEventListener('change', filterReports);
+          filter.addEventListener('keyup', filterReports);
+        });
+
+        function filterReports() {
+          // This is a placeholder - in production, you would filter the actual report data
+          console.log('Filtering reports...');
+          // Implementation would connect to backend API
+        }
+
+        // Action button handlers
+        document.querySelectorAll('.btn-outline-primary').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('View report functionality');
+          });
+        });
+
+        document.querySelectorAll('.btn-outline-secondary').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Download report functionality');
+          });
+        });
+
+        document.querySelectorAll('.btn-outline-info').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Send to patient functionality');
+          });
+        });
+
+        document.querySelectorAll('.btn-outline-danger').forEach(btn => {
+          btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            if (confirm('Are you sure you want to delete this report?')) {
+              alert('Report deleted');
+            }
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
