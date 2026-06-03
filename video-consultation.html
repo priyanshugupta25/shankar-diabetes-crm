@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shanker Diabetes CRM | Video Consultations</title>
+
+  <!-- Meta -->
+  <meta name="description" content="Shanker Diabetes CRM - Video Consultations">
+  <meta property="og:title" content="Shanker Diabetes CRM">
+  <meta property="og:description" content="Shanker Diabetes CRM">
+  <meta property="og:type" content="Website">
+  <link rel="shortcut icon" href="assets/images/favicon.svg">
+
+  <link rel="stylesheet" href="assets/fonts/remix/remixicon.css">
+  <link rel="stylesheet" href="assets/css/main.min.css">
+  <link rel="stylesheet" href="assets/vendor/overlay-scroll/OverlayScrollbars.min.css">
+
+  <style>
+    .consultation-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 1200px) {
+      .consultation-container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .consultation-composer {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .composer-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2E75B6;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .composer-title i {
+      font-size: 20px;
+    }
+
+    .form-section {
+      margin-bottom: 20px;
+    }
+
+    .form-section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: block;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 8px;
+    }
+
+    .platform-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .platform-btn {
+      padding: 15px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .platform-btn i {
+      font-size: 24px;
+    }
+
+    .platform-btn:hover {
+      border-color: #667eea;
+      color: #667eea;
+    }
+
+    .platform-btn.active {
+      background-color: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .form-row .form-group {
+      margin-bottom: 0;
+    }
+
+    .doctor-selector-btn {
+      display: inline-block;
+      padding: 8px 12px;
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      margin-right: 6px;
+      margin-bottom: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .doctor-selector-btn:hover {
+      background-color: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .doctor-selector-btn.selected {
+      background-color: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .consultation-preview {
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-left: 4px solid #667eea;
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .preview-icon {
+      width: 40px;
+      height: 40px;
+      background-color: #667eea;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+    }
+
+    .preview-title {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .preview-subtitle {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .preview-details {
+      background: white;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 8px;
+    }
+
+    .preview-detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+
+    .preview-detail-row:last-child {
+      border-bottom: none;
+    }
+
+    .preview-label {
+      color: #999;
+      font-size: 12px;
+    }
+
+    .preview-value {
+      color: #333;
+      font-weight: 500;
+    }
+
+    .consultation-selector {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .selector-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2E75B6;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      padding: 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .filter-tab.active {
+      background-color: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .filter-section {
+      margin-bottom: 20px;
+    }
+
+    .filter-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+      display: block;
+      text-transform: uppercase;
+    }
+
+    .filter-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .filter-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+    }
+
+    .filter-checkbox:hover {
+      background-color: #f5f5f5;
+    }
+
+    .filter-checkbox input {
+      cursor: pointer;
+    }
+
+    .filter-checkbox label {
+      cursor: pointer;
+      margin: 0;
+      font-size: 13px;
+    }
+
+    .participant-count {
+      background-color: #f0f0f0;
+      padding: 12px;
+      border-radius: 6px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .participant-count-number {
+      font-size: 24px;
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    .participant-count-label {
+      font-size: 12px;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    .patient-list {
+      max-height: 350px;
+      overflow-y: auto;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 8px;
+      margin-bottom: 15px;
+    }
+
+    .patient-item {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .patient-item:hover {
+      background-color: #f9f9f9;
+    }
+
+    .patient-item:last-child {
+      border-bottom: none;
+    }
+
+    .patient-item.selected {
+      background-color: #f0f0f0;
+    }
+
+    .patient-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: #667eea;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      margin-right: 10px;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    .patient-info {
+      flex: 1;
+    }
+
+    .patient-name {
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 2px;
+    }
+
+    .patient-category {
+      font-size: 11px;
+      color: #999;
+    }
+
+    .consultation-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .consultation-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .stat-mini {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .stat-mini-number {
+      font-size: 24px;
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    .stat-mini-label {
+      font-size: 11px;
+      color: #999;
+      margin-top: 5px;
+      text-transform: uppercase;
+    }
+
+    .alert-box {
+      display: flex;
+      gap: 12px;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+
+    .alert-box.info {
+      background-color: #e7f3ff;
+      border-left: 4px solid #2196F3;
+    }
+
+    .alert-box.success {
+      background-color: #e8f5e9;
+      border-left: 4px solid #4caf50;
+    }
+
+    .alert-box i {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: #2196F3;
+    }
+
+    .alert-box.success i {
+      color: #4caf50;
+    }
+
+    .alert-box p {
+      margin: 0;
+      font-size: 13px;
+    }
+
+    .consultation-history {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .history-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2E75B6;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .consultation-log-item {
+      display: flex;
+      gap: 15px;
+      padding: 15px;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background-color 0.2s ease;
+    }
+
+    .consultation-log-item:hover {
+      background-color: #f9f9f9;
+    }
+
+    .consultation-log-item:last-child {
+      border-bottom: none;
+    }
+
+    .log-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-color: #667eea;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .log-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .log-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 8px;
+    }
+
+    .log-name {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .log-time {
+      font-size: 11px;
+      color: #999;
+    }
+
+    .log-details {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .log-detail-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .log-detail-item i {
+      color: #999;
+    }
+
+    .log-status {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .status-completed {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .status-scheduled {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+
+    .status-noshow {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .status-inprogress {
+      background-color: #fff3cd;
+      color: #856404;
+    }
+
+    .log-rating {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .star {
+      color: #ffc107;
+    }
+
+    .notification-section {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .notification-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .notification-option:last-child {
+      margin-bottom: 0;
+    }
+
+    .notification-option input {
+      cursor: pointer;
+    }
+
+    .notification-option label {
+      cursor: pointer;
+      margin: 0;
+      font-size: 13px;
+    }
+
+    .notification-time {
+      margin-top: 10px;
+      padding: 10px;
+      background: white;
+      border-radius: 6px;
+      display: none;
+    }
+
+    .notification-time.show {
+      display: block;
+    }
+
+    .notification-time .form-group {
+      margin-bottom: 8px;
+    }
+
+    .copy-link-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .copy-link-btn:hover {
+      background-color: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .pagination {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .pagination button,
+    .pagination span {
+      padding: 6px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .pagination button:hover {
+      border-color: #667eea;
+      color: #667eea;
+    }
+
+    .pagination .active {
+      background-color: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .meeting-link-box {
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .meeting-link-text {
+      word-break: break-all;
+      font-size: 12px;
+      color: #666;
+      font-family: monospace;
+      margin-bottom: 8px;
+      padding: 8px;
+      background: white;
+      border-radius: 4px;
+      border: 1px solid #ddd;
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 15px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .tab-btn {
+      padding: 10px 15px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      color: #999;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.3s ease;
+    }
+
+    .tab-btn.active {
+      color: #667eea;
+      border-bottom-color: #667eea;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    .video-preview {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      margin-bottom: 15px;
+    }
+
+    .duration-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background-color: #17a2b8;
+      color: white;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Page wrapper starts -->
+  <div class="page-wrapper">
+
+    <!-- App header starts -->
+    <div class="app-header d-flex align-items-center">
+
+      <!-- Toggle buttons starts -->
+      <div class="d-flex">
+        <button class="toggle-sidebar">
+          <i class="ri-menu-line"></i>
+        </button>
+        <button class="pin-sidebar">
+          <i class="ri-menu-line"></i>
+        </button>
+      </div>
+      <!-- Toggle buttons ends -->
+
+      <!-- App brand starts -->
+      <div class="app-brand ms-3">
+        <a href="index.html" class="d-lg-block d-none">
+          <img src="assets/images/logo.svg" class="logo" alt="Shanker Diabetes CRM">
+        </a>
+        <a href="index.html" class="d-lg-none d-md-block">
+          <img src="assets/images/logo-sm.svg" class="logo" alt="Shanker Diabetes CRM">
+        </a>
+      </div>
+      <!-- App brand ends -->
+
+      <!-- App header actions starts -->
+      <div class="header-actions">
+
+        <!-- Header user settings starts -->
+        <div class="dropdown ms-2">
+          <a id="userSettings" class="dropdown-toggle d-flex align-items-center" href="#!" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="avatar-box">AS<span class="status busy"></span></div>
+          </a>
+          <div class="dropdown-menu dropdown-menu-end shadow-lg">
+            <div class="px-3 py-2">
+              <span class="small">Admin</span>
+              <h6 class="m-0">Anand Shankar</h6>
+            </div>
+            <div class="mx-3 my-2 d-grid">
+              <a href="login.html" class="btn btn-danger">Logout</a>
+            </div>
+          </div>
+        </div>
+        <!-- Header user settings ends -->
+
+      </div>
+      <!-- App header actions ends -->
+
+    </div>
+    <!-- App header ends -->
+
+    <!-- Main container starts -->
+    <div class="main-container">
+
+      <!-- Sidebar wrapper starts -->
+       <nav id="sidebar" class="sidebar-wrapper">
+          <!-- Sidebar profile starts -->
+          <div class="sidebar-profile">
+            <div class="m-0">
+              <h5 class="mb-1 profile-name text-nowrap text-truncate">
+                Dr. Anand Shankar
+              </h5>
+              <p class="m-0 small profile-name text-nowrap text-truncate">
+                Administrator
+              </p>
+            </div>
+          </div>
+          <!-- Sidebar profile ends -->
+
+          <!-- Sidebar menu starts -->
+          <div class="sidebarMenuScroll">
+            <ul class="sidebar-menu">
+              <li>
+                <a href="index.html">
+                  <i class="ri-home-6-line"></i>
+                  <span class="menu-text">Dashboard</span>
+                </a>
+              </li>
+              <li class="treeview">
+                <a href="#!">
+                  <i class="ri-heart-pulse-line"></i>
+                  <span class="menu-text">Patients</span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a href="patient-dashboard.html">Patient Dashboard</a>
+                  </li>
+                  <li>
+                    <a href="patients-list.html">Patients List</a>
+                  </li>
+                  <li>
+                    <a href="add-patient.html">Add Patient</a>
+                  </li>
+                  <li>
+                    <a href="edit-patient.html">Edit Patient</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="treeview">
+                <a href="#!">
+                  <i class="ri-calendar-todo-line"></i>
+                  <span class="menu-text">Appointments</span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a href="appointments.html">Appointments</a>
+                  </li>
+                  <li>
+                    <a href="appointments-list.html">Appointments List</a>
+                  </li>
+                  <li>
+                    <a href="book-appointment.html">Book Appointment</a>
+                  </li>
+                  <li>
+                    <a href="edit-appointment.html">Edit Appointment</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="treeview">
+                <a href="#!">
+                  <i class="ri-file-text-line"></i>
+                  <span class="menu-text">Reports</span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a href="reports.html">Reports</a>
+                  </li>
+                  <li>
+                    <a href="upload-report.html">Upload Report</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="messaging.html">
+                  <i class="ri-message-3-line"></i>
+                  <span class="menu-text">WhatsApp Messages</span>
+                </a>
+              </li>
+              <li>
+                <a href="quiz.html">
+                  <i class="ri-game-line"></i>
+                  <span class="menu-text">Quiz Management</span>
+                </a>
+              </li>
+              <li class="active current-page">
+                <a href="video-consultation.html">
+                  <i class="ri-video-line"></i>
+                  <span class="menu-text">Video Consultations</span>
+                </a>
+              </li>
+              <li>
+                <a href="notices.html">
+                  <i class="ri-notification-line"></i>
+                  <span class="menu-text">Notices & Announcements</span>
+                </a>
+              </li>
+              <li>
+                <a href="blog.html">
+                  <i class="ri-article-line"></i>
+                  <span class="menu-text">Blog Management</span>
+                </a>
+              </li>
+              <li>
+                <a href="settings.html">
+                  <i class="ri-settings-5-line"></i>
+                  <span class="menu-text">Settings</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-- Sidebar menu ends -->
+
+          <!-- Sidebar contact starts -->
+          <div class="sidebar-contact">
+            <p class="fw-light mb-1 text-nowrap text-truncate">
+              Emergency Contact
+            </p>
+            <h5 class="m-0 lh-1 text-nowrap text-truncate">+91-9876543210</h5>
+            <i class="ri-phone-line"></i>
+          </div>
+          <!-- Sidebar contact ends -->
+        </nav>
+      <!-- Sidebar wrapper ends -->
+
+      <!-- App container starts -->
+      <div class="app-container">
+
+        <!-- App hero header starts -->
+        <div class="app-hero-header d-flex align-items-center">
+
+          <!-- Breadcrumb starts -->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <i class="ri-home-8-line lh-1 pe-3 me-3 border-end"></i>
+              <a href="index.html">Home</a>
+            </li>
+            <li class="breadcrumb-item text-primary" aria-current="page">
+              Video Consultations
+            </li>
+          </ol>
+          <!-- Breadcrumb ends -->
+        </div>
+        <!-- App Hero header ends -->
+
+        <!-- App body starts -->
+        <div class="app-body">
+
+          <!-- STATISTICS SECTION -->
+          <div class="consultation-stats">
+            <div class="stat-mini">
+              <div class="stat-mini-number">142</div>
+              <div class="stat-mini-label">Scheduled</div>
+            </div>
+            <div class="stat-mini">
+              <div class="stat-mini-number">128</div>
+              <div class="stat-mini-label">Completed</div>
+            </div>
+            <div class="stat-mini">
+              <div class="stat-mini-number">4.8/5</div>
+              <div class="stat-mini-label">Avg Rating</div>
+            </div>
+            <div class="stat-mini">
+              <div class="stat-mini-number">847</div>
+              <div class="stat-mini-label">Total Minutes</div>
+            </div>
+          </div>
+
+          <!-- ALERT BOX -->
+          <div class="alert-box info">
+            <i class="ri-information-line"></i>
+            <p>
+              <strong>Video Consultation Management:</strong> Schedule video calls with patients using Zoom, Google Meet, or other platforms. Automatically send meeting links via WhatsApp/Email. Track consultation history, duration, and patient satisfaction ratings.
+            </p>
+          </div>
+
+          <!-- MAIN CONSULTATION CONTAINER -->
+          <div class="consultation-container">
+
+            <!-- LEFT COLUMN: SCHEDULE CONSULTATION -->
+            <div class="consultation-composer">
+
+              <div class="composer-title">
+                <i class="ri-video-add-line"></i>
+                Schedule Consultation
+              </div>
+
+              <!-- PLATFORM SELECTION -->
+              <div class="form-section">
+                <label class="form-section-title">Select Platform</label>
+                <div class="platform-buttons">
+                  <button class="platform-btn active" onclick="setPlatform(this, 'zoom')">
+                    <i class="ri-zoom-in-line"></i> Zoom
+                  </button>
+                  <button class="platform-btn" onclick="setPlatform(this, 'gmeet')">
+                    <i class="ri-video-line"></i> Google Meet
+                  </button>
+                  <button class="platform-btn" onclick="setPlatform(this, 'teams')">
+                    <i class="ri-team-line"></i> Microsoft Teams
+                  </button>
+                  <button class="platform-btn" onclick="setPlatform(this, 'jitsi')">
+                    <i class="ri-video-chat-line"></i> Jitsi Meet
+                  </button>
+                </div>
+              </div>
+
+              <!-- CONSULTATION DETAILS -->
+              <div class="form-section">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Consultation Title <span style="color: #dc3545;">*</span></label>
+                    <input type="text" placeholder="e.g., Diabetes Follow-up" id="consultationTitle" onkeyup="updatePreview()">
+                  </div>
+                  <div class="form-group">
+                    <label>Consultation Type <span style="color: #dc3545;">*</span></label>
+                    <select id="consultationType" onchange="updatePreview()">
+                      <option>Follow-up</option>
+                      <option>Check-up</option>
+                      <option>Consultation</option>
+                      <option>Review</option>
+                      <option>Emergency</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- DATE & TIME -->
+              <div class="form-section">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Date <span style="color: #dc3545;">*</span></label>
+                    <input type="date" id="consultationDate" onchange="updatePreview()">
+                  </div>
+                  <div class="form-group">
+                    <label>Time <span style="color: #dc3545;">*</span></label>
+                    <input type="time" id="consultationTime" onchange="updatePreview()">
+                  </div>
+                </div>
+              </div>
+
+              <!-- DURATION -->
+              <div class="form-group">
+                <label>Expected Duration (minutes) <span style="color: #dc3545;">*</span></label>
+                <select id="duration" onchange="updatePreview()">
+                  <option value="15">15 minutes</option>
+                  <option value="30" selected>30 minutes</option>
+                  <option value="45">45 minutes</option>
+                  <option value="60">1 hour</option>
+                  <option value="90">1.5 hours</option>
+                  <option value="120">2 hours</option>
+                </select>
+              </div>
+
+              <!-- DOCTOR SELECTION -->
+              <div class="form-section">
+                <label class="form-section-title">Assigned Doctor</label>
+                <div style="margin-bottom: 12px;">
+                  <button class="doctor-selector-btn selected" onclick="selectDoctor(this, 'Dr. Anand Shankar')">Dr. Anand Shankar</button>
+                </div>
+              </div>
+
+              <!-- DESCRIPTION -->
+              <div class="form-group">
+                <label>Consultation Notes</label>
+                <textarea id="notes" placeholder="Add any special notes or instructions..." onkeyup="updatePreview()"></textarea>
+              </div>
+
+              <!-- MEETING LINK -->
+              <div class="form-section">
+                <label class="form-section-title">Meeting Link</label>
+                <div class="meeting-link-box">
+                  <div class="meeting-link-text" id="meetingLink">https://zoom.us/j/1234567890</div>
+                  <button class="copy-link-btn" onclick="copyLink()">
+                    <i class="ri-file-copy-line"></i> Copy Link
+                  </button>
+                </div>
+              </div>
+
+              <!-- CONSULTATION PREVIEW -->
+              <div class="consultation-preview">
+                <div class="preview-header">
+                  <div class="preview-icon">
+                    <i class="ri-video-line"></i>
+                  </div>
+                  <div>
+                    <div class="preview-title">Consultation Summary</div>
+                    <div class="preview-subtitle" id="platformDisplay">Zoom • Scheduled</div>
+                  </div>
+                </div>
+                <div class="preview-details">
+                  <div class="preview-detail-row">
+                    <span class="preview-label">Title:</span>
+                    <span class="preview-value" id="previewTitle">Diabetes Follow-up</span>
+                  </div>
+                  <div class="preview-detail-row">
+                    <span class="preview-label">Type:</span>
+                    <span class="preview-value" id="previewType">Follow-up</span>
+                  </div>
+                  <div class="preview-detail-row">
+                    <span class="preview-label">Doctor:</span>
+                    <span class="preview-value" id="previewDoctor">Dr. Mitchell</span>
+                  </div>
+                  <div class="preview-detail-row">
+                    <span class="preview-label">Date & Time:</span>
+                    <span class="preview-value" id="previewDateTime">Select date/time</span>
+                  </div>
+                  <div class="preview-detail-row">
+                    <span class="preview-label">Duration:</span>
+                    <span class="preview-value" id="previewDuration">30 minutes</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ACTION BUTTONS -->
+              <div class="consultation-actions" style="margin-top: 20px;">
+                <button class="btn btn-primary flex-grow-1" onclick="scheduleConsultation()">
+                  <i class="ri-calendar-check-line me-2"></i>Schedule
+                </button>
+                <button class="btn btn-outline-secondary" onclick="resetForm()">
+                  <i class="ri-refresh-line me-2"></i>Reset
+                </button>
+              </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: PATIENT SELECTION & NOTIFICATIONS -->
+            <div class="consultation-selector">
+
+              <div class="selector-title">
+                <i class="ri-team-line"></i>
+                Select Patients
+              </div>
+
+              <!-- FILTER TABS -->
+              <div class="filter-tabs">
+                <button class="filter-tab active" onclick="filterPatients('all')">All</button>
+                <button class="filter-tab" onclick="filterPatients('regular')">Regular</button>
+                <button class="filter-tab" onclick="filterPatients('followup')">Follow-up Due</button>
+                <button class="filter-tab" onclick="filterPatients('new')">New</button>
+              </div>
+
+              <!-- PARTICIPANT COUNT -->
+              <div class="participant-count">
+                <div class="participant-count-number" id="patientCount">0</div>
+                <div class="participant-count-label">Selected Patients</div>
+              </div>
+
+              <!-- FILTER OPTIONS -->
+              <div class="filter-section">
+                <label class="filter-label">Patient Category</label>
+                <div class="filter-options">
+                  <div class="filter-checkbox">
+                    <input type="checkbox" id="filterRegular" checked onchange="updatePatientCount()">
+                    <label for="filterRegular">Regular Patients (45)</label>
+                  </div>
+                  <div class="filter-checkbox">
+                    <input type="checkbox" id="filterFollowup" checked onchange="updatePatientCount()">
+                    <label for="filterFollowup">Follow-up Due (28)</label>
+                  </div>
+                  <div class="filter-checkbox">
+                    <input type="checkbox" id="filterNew" onchange="updatePatientCount()">
+                    <label for="filterNew">New Patients (12)</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="filter-section">
+                <label class="filter-label">Diabetes Type</label>
+                <div class="filter-options">
+                  <div class="filter-checkbox">
+                    <input type="checkbox" id="filterType1" checked onchange="updatePatientCount()">
+                    <label for="filterType1">Type 1 (15)</label>
+                  </div>
+                  <div class="filter-checkbox">
+                    <input type="checkbox" id="filterType2" checked onchange="updatePatientCount()">
+                    <label for="filterType2">Type 2 (42)</label>
+                  </div>
+                  <div class="filter-checkbox">
+                    <input type="checkbox" id="filterGestational" checked onchange="updatePatientCount()">
+                    <label for="filterGestational">Gestational (5)</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- PATIENT LIST -->
+              <label class="filter-label">Patient List</label>
+              <div class="patient-list">
+                <div class="patient-item selected" onclick="togglePatient(this)">
+                  <input type="checkbox" checked>
+                  <div class="patient-avatar">RK</div>
+                  <div class="patient-info">
+                    <div class="patient-name">Raj Singh</div>
+                    <div class="patient-category">Regular • Type 2</div>
+                  </div>
+                </div>
+                <div class="patient-item" onclick="togglePatient(this)">
+                  <input type="checkbox">
+                  <div class="patient-avatar" style="background-color: #17a2b8;">KK</div>
+                  <div class="patient-info">
+                    <div class="patient-name">Kavita Kumari</div>
+                    <div class="patient-category">Regular • Gestational</div>
+                  </div>
+                </div>
+                <div class="patient-item" onclick="togglePatient(this)">
+                  <input type="checkbox">
+                  <div class="patient-avatar" style="background-color: #28a745;">SY</div>
+                  <div class="patient-info">
+                    <div class="patient-name">Santosh Yadav</div>
+                    <div class="patient-category">Follow-up Due • Type 1</div>
+                  </div>
+                </div>
+                <div class="patient-item" onclick="togglePatient(this)">
+                  <input type="checkbox">
+                  <div class="patient-avatar" style="background-color: #ff9800;">KR</div>
+                  <div class="patient-info">
+                    <div class="patient-name">Kundan Raj</div>
+                    <div class="patient-category">Regular • Type 2</div>
+                  </div>
+                </div>
+                <div class="patient-item" onclick="togglePatient(this)">
+                  <input type="checkbox">
+                  <div class="patient-avatar" style="background-color: #9c27b0;">DD</div>
+                  <div class="patient-info">
+                    <div class="patient-name">Durga Devi</div>
+                    <div class="patient-category">Follow-up Due • Type 2</div>
+                  </div>
+                </div>
+                <p style="text-align: center; font-size: 12px; color: #999; padding: 10px; margin: 0; border-top: 1px solid #f0f0f0;">
+                  + 38 more patients
+                </p>
+              </div>
+
+              <!-- NOTIFICATION SETTINGS -->
+              <div class="form-section">
+                <label class="form-section-title">Send Notifications</label>
+                <div class="notification-section">
+                  <div class="notification-option">
+                    <input type="checkbox" id="notifyWhatsapp" checked>
+                    <label for="notifyWhatsapp">Send via WhatsApp</label>
+                  </div>
+                  <div class="notification-option">
+                    <input type="checkbox" id="notifyEmail" checked>
+                    <label for="notifyEmail">Send via Email</label>
+                  </div>
+                  <div class="notification-option">
+                    <input type="checkbox" id="notifyReminder">
+                    <label for="notifyReminder">Send Reminder Before Meeting</label>
+                  </div>
+                  <div class="notification-time" id="reminderTime">
+                    <div class="form-group">
+                      <label style="font-size: 12px; font-weight: 600;">Remind</label>
+                      <select style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; font-size: 13px;">
+                        <option>15 minutes before</option>
+                        <option>30 minutes before</option>
+                        <option>1 hour before</option>
+                        <option>1 day before</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- ACTION BUTTONS -->
+              <div class="consultation-actions" style="margin-top: 20px;">
+                <button class="btn btn-primary flex-grow-1" onclick="sendInvitations()">
+                  <i class="ri-send-plane-line me-2"></i>Send Invitations
+                </button>
+                <button class="btn btn-outline-secondary" onclick="saveDraft()">
+                  <i class="ri-draft-line me-2"></i>Draft
+                </button>
+              </div>
+
+              <!-- QUICK INFO -->
+              <div class="alert-box success" style="margin-top: 20px;">
+                <i class="ri-check-line"></i>
+                <p><strong>Tip:</strong> Patients will receive meeting link and can join from their phone or computer.</p>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- CONSULTATION HISTORY SECTION -->
+          <div class="consultation-history" style="margin-top: 30px;">
+
+            <div class="history-title">
+              <i class="ri-history-line"></i>
+              Consultation History
+            </div>
+
+            <!-- TAB BUTTONS -->
+            <div class="tab-buttons">
+              <button class="tab-btn active" onclick="switchTab(event, 'all')">All</button>
+              <button class="tab-btn" onclick="switchTab(event, 'completed')">Completed</button>
+              <button class="tab-btn" onclick="switchTab(event, 'scheduled')">Scheduled</button>
+              <button class="tab-btn" onclick="switchTab(event, 'noshow')">No-show</button>
+            </div>
+
+            <!-- CONSULTATION LOG 1 -->
+            <div class="consultation-log-item">
+              <div class="log-avatar" style="background-color: #28a745;">✓</div>
+              <div class="log-content">
+                <div class="log-header">
+                  <div>
+                    <div class="log-name">Raj Singh - Diabetes Follow-up</div>
+                  </div>
+                  <div class="log-time">Today at 2:30 PM</div>
+                </div>
+                <div class="log-details">
+                  <div class="log-detail-item">
+                    <i class="ri-video-line"></i> Zoom
+                  </div>
+                  <div class="log-detail-item">
+                    <i class="ri-user-line"></i> Dr. Mitchell
+                  </div>
+                  <span class="duration-badge">32 min</span>
+                  <span class="log-status status-completed">Completed</span>
+                </div>
+                <div class="log-rating">
+                  <span>Patient Rating:</span>
+                  <span class="star">★★★★★</span>
+                  <span>5.0</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CONSULTATION LOG 2 -->
+            <div class="consultation-log-item">
+              <div class="log-avatar" style="background-color: #17a2b8;">📅</div>
+              <div class="log-content">
+                <div class="log-header">
+                  <div>
+                    <div class="log-name">Kavita Kumari - Gestational Check-up</div>
+                  </div>
+                  <div class="log-time">Tomorrow at 10:00 AM</div>
+                </div>
+                <div class="log-details">
+                  <div class="log-detail-item">
+                    <i class="ri-video-line"></i> Google Meet
+                  </div>
+                  <div class="log-detail-item">
+                    <i class="ri-user-line"></i> Dr. Patel
+                  </div>
+                  <span class="duration-badge">30 min</span>
+                  <span class="log-status status-scheduled">Scheduled</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CONSULTATION LOG 3 -->
+            <div class="consultation-log-item">
+              <div class="log-avatar" style="background-color: #ff9800;">✓</div>
+              <div class="log-content">
+                <div class="log-header">
+                  <div>
+                    <div class="log-name">Santosh Yadav - Type 1 Consultation</div>
+                  </div>
+                  <div class="log-time">Yesterday at 3:15 PM</div>
+                </div>
+                <div class="log-details">
+                  <div class="log-detail-item">
+                    <i class="ri-video-line"></i> Zoom
+                  </div>
+                  <div class="log-detail-item">
+                    <i class="ri-user-line"></i> Dr. Kumar
+                  </div>
+                  <span class="duration-badge">45 min</span>
+                  <span class="log-status status-completed">Completed</span>
+                </div>
+                <div class="log-rating">
+                  <span>Patient Rating:</span>
+                  <span class="star">★★★★☆</span>
+                  <span>4.8</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CONSULTATION LOG 4 -->
+            <div class="consultation-log-item">
+              <div class="log-avatar" style="background-color: #dc3545;">✗</div>
+              <div class="log-content">
+                <div class="log-header">
+                  <div>
+                    <div class="log-name">Kundan Raj - Emergency Consultation</div>
+                  </div>
+                  <div class="log-time">3 days ago at 5:00 PM</div>
+                </div>
+                <div class="log-details">
+                  <div class="log-detail-item">
+                    <i class="ri-video-line"></i> Teams
+                  </div>
+                  <div class="log-detail-item">
+                    <i class="ri-user-line"></i> Dr. Singh
+                  </div>
+                  <span class="duration-badge">N/A</span>
+                  <span class="log-status status-noshow">No-show</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- CONSULTATION LOG 5 -->
+            <div class="consultation-log-item">
+              <div class="log-avatar" style="background-color: #9c27b0;">✓</div>
+              <div class="log-content">
+                <div class="log-header">
+                  <div>
+                    <div class="log-name">Durga Devi - Medication Review</div>
+                  </div>
+                  <div class="log-time">1 week ago at 11:30 AM</div>
+                </div>
+                <div class="log-details">
+                  <div class="log-detail-item">
+                    <i class="ri-video-line"></i> Jitsi Meet
+                  </div>
+                  <div class="log-detail-item">
+                    <i class="ri-user-line"></i> Dr. Mitchell
+                  </div>
+                  <span class="duration-badge">28 min</span>
+                  <span class="log-status status-completed">Completed</span>
+                </div>
+                <div class="log-rating">
+                  <span>Patient Rating:</span>
+                  <span class="star">★★★★★</span>
+                  <span>4.9</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- PAGINATION -->
+            <div class="pagination">
+              <button onclick="alert('Previous page')">← Previous</button>
+              <span class="active">1</span>
+              <button onclick="alert('Page 2')">2</button>
+              <button onclick="alert('Page 3')">3</button>
+              <button onclick="alert('Next page')">Next →</button>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- App body ends -->
+
+        <!-- App footer starts -->
+        <div class="app-footer bg-white">
+          <span>© Shanker Diabetes CRM 2024</span>
+        </div>
+        <!-- App footer ends -->
+      </div>
+      <!-- App container ends -->
+
+    </div>
+    <!-- Main container ends -->
+
+  </div>
+  <!-- Page wrapper ends -->
+
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/moment.min.js"></script>
+
+  <!-- Overlay Scroll JS -->
+  <script src="assets/vendor/overlay-scroll/jquery.overlayScrollbars.min.js"></script>
+  <script src="assets/vendor/overlay-scroll/custom-scrollbar.js"></script>
+
+  <!-- Custom JS files -->
+  <script src="assets/js/custom.js"></script>
+
+  <script>
+    let currentPlatform = 'zoom';
+    let currentDoctor = 'Dr. Mitchell';
+    let selectedPatients = 1;
+
+    function setPlatform(btn, platform) {
+      document.querySelectorAll('.platform-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentPlatform = platform;
+      
+      const platformNames = {
+        'zoom': 'Zoom',
+        'gmeet': 'Google Meet',
+        'teams': 'Microsoft Teams',
+        'jitsi': 'Jitsi Meet'
+      };
+      
+      document.getElementById('platformDisplay').textContent = platformNames[platform] + ' • Scheduled';
+      updatePreview();
+    }
+
+    function selectDoctor(btn, doctor) {
+      document.querySelectorAll('.doctor-selector-btn').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+      currentDoctor = doctor;
+      updatePreview();
+    }
+
+    function updatePreview() {
+      const title = document.getElementById('consultationTitle').value || 'Diabetes Follow-up';
+      const type = document.getElementById('consultationType').value || 'Follow-up';
+      const date = document.getElementById('consultationDate').value || 'Select date';
+      const time = document.getElementById('consultationTime').value || 'Select time';
+      const duration = document.getElementById('duration').value || '30';
+
+      document.getElementById('previewTitle').textContent = title;
+      document.getElementById('previewType').textContent = type;
+      document.getElementById('previewDoctor').textContent = currentDoctor;
+      document.getElementById('previewDateTime').textContent = date && time ? `${date} at ${time}` : 'Select date/time';
+      document.getElementById('previewDuration').textContent = duration + ' minutes';
+    }
+
+    function togglePatient(element) {
+      element.classList.toggle('selected');
+      const checkbox = element.querySelector('input[type="checkbox"]');
+      checkbox.checked = !checkbox.checked;
+      updatePatientCount();
+    }
+
+    function updatePatientCount() {
+      const regular = document.getElementById('filterRegular').checked ? 45 : 0;
+      const followup = document.getElementById('filterFollowup').checked ? 28 : 0;
+      const newpatients = document.getElementById('filterNew').checked ? 12 : 0;
+      
+      const type1 = document.getElementById('filterType1').checked;
+      const type2 = document.getElementById('filterType2').checked;
+      const gestational = document.getElementById('filterGestational').checked;
+      
+      if (!type1 && !type2 && !gestational) {
+        selectedPatients = 0;
+      } else {
+        selectedPatients = Math.max(1, regular + followup + newpatients);
+      }
+      
+      document.getElementById('patientCount').textContent = selectedPatients;
+    }
+
+    function filterPatients(category) {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    function copyLink() {
+      const link = document.getElementById('meetingLink').textContent;
+      navigator.clipboard.writeText(link).then(() => {
+        alert('Meeting link copied to clipboard!');
+      });
+    }
+
+    function scheduleConsultation() {
+      const title = document.getElementById('consultationTitle').value;
+      const date = document.getElementById('consultationDate').value;
+      const time = document.getElementById('consultationTime').value;
+      
+      if (!title.trim()) {
+        alert('Please enter consultation title');
+        return;
+      }
+      
+      if (!date || !time) {
+        alert('Please select date and time');
+        return;
+      }
+      
+      alert(`Consultation Scheduled!\n\nTitle: ${title}\nDate: ${date} at ${time}\nDoctor: ${currentDoctor}\nPlatform: ${currentPlatform}`);
+      resetForm();
+    }
+
+    function sendInvitations() {
+      if (selectedPatients === 0) {
+        alert('Please select at least one patient');
+        return;
+      }
+      
+      const notifyWhatsapp = document.getElementById('notifyWhatsapp').checked;
+      const notifyEmail = document.getElementById('notifyEmail').checked;
+      const channels = [];
+      
+      if (notifyWhatsapp) channels.push('WhatsApp');
+      if (notifyEmail) channels.push('Email');
+      
+      if (channels.length === 0) {
+        alert('Please select at least one notification channel');
+        return;
+      }
+      
+      alert(`Invitations sent to ${selectedPatients} patients via ${channels.join(' & ')}`);
+    }
+
+    function saveDraft() {
+      alert('Consultation draft saved!');
+    }
+
+    function resetForm() {
+      document.getElementById('consultationTitle').value = '';
+      document.getElementById('consultationType').value = 'Follow-up';
+      document.getElementById('consultationDate').value = '';
+      document.getElementById('consultationTime').value = '';
+      document.getElementById('duration').value = '30';
+      document.getElementById('notes').value = '';
+      updatePreview();
+    }
+
+    function switchTab(e, tab) {
+      e.preventDefault();
+      document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+      e.target.classList.add('active');
+    }
+
+    // Initialize
+    updatePreview();
+    updatePatientCount();
+    
+    // Set default date to today
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('consultationDate').value = today;
+  </script>
+
+</body>
+
+</html>

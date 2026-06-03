@@ -1,390 +1,733 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Shankar Diabetes CRM | WhatsApp Messaging</title>
 
-    <!-- Meta -->
-    <meta
-      name="description"
-      content="WhatsApp Messaging System - Shankar Diabetes CRM"
-    />
-    <meta property="og:title" content="WhatsApp Messaging - Shankar Diabetes CRM" />
-    <meta
-      property="og:description"
-      content="Send messages, reminders, and health tips to patients via WhatsApp"
-    />
-    <meta property="og:type" content="Website" />
-    <link rel="shortcut icon" href="assets/images/favicon.svg" />
-    <link rel="stylesheet" href="assets/fonts/remix/remixicon.css" />
-    <link rel="stylesheet" href="assets/css/main.min.css" />
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shanker Diabetes CRM | WhatsApp Messages</title>
+  <!-- Meta -->
+  <meta name="description" content="Shanker Diabetes CRM - WhatsApp Messaging">
+  <meta property="og:title" content="Shanker Diabetes CRM">
+  <meta property="og:description" content="Shanker Diabetes CRM">
+  <meta property="og:type" content="Website">
+  <link rel="shortcut icon" href="assets/images/favicon.svg">
 
-    <!-- Scrollbar CSS -->
-    <link
-      rel="stylesheet"
-      href="assets/vendor/overlay-scroll/OverlayScrollbars.min.css"
-    />
+  <link rel="stylesheet" href="assets/fonts/remix/remixicon.css">
+  <link rel="stylesheet" href="assets/css/main.min.css">
+  <link rel="stylesheet" href="assets/vendor/overlay-scroll/OverlayScrollbars.min.css">
 
-    <!-- Custom CSS -->
-    <style>
-      .message-type-badge {
-        display: inline-block;
-        padding: 0.3rem 0.6rem;
-        background-color: #e7f1ff;
-        color: #0d6efd;
-        border-radius: 3px;
-        font-size: 0.8rem;
-        font-weight: 600;
-        margin-right: 0.5rem;
-        margin-bottom: 0.5rem;
-      }
-      .message-type-badge.text {
-        background-color: #e7f1ff;
-        color: #0d6efd;
-      }
-      .message-type-badge.image {
-        background-color: #d1ecf1;
-        color: #0c5460;
-      }
-      .message-type-badge.video {
-        background-color: #f8d7da;
-        color: #721c24;
-      }
-      .message-type-badge.document {
-        background-color: #fff3cd;
-        color: #856404;
-      }
-      .message-type-badge.audio {
-        background-color: #d4edda;
-        color: #155724;
-      }
-      .status-badge {
-        display: inline-block;
-        padding: 0.3rem 0.6rem;
-        border-radius: 3px;
-        font-size: 0.75rem;
-        font-weight: 700;
-      }
-      .status-scheduled {
-        background-color: #fff3cd;
-        color: #856404;
-      }
-      .status-sent {
-        background-color: #d1ecf1;
-        color: #0c5460;
-      }
-      .status-delivered {
-        background-color: #d4edda;
-        color: #155724;
-      }
-      .status-failed {
-        background-color: #f8d7da;
-        color: #721c24;
-      }
-      .stats-cards {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 1rem;
-        margin-bottom: 2rem;
-      }
-      .stat-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 1.5rem;
-        border-radius: 8px;
-        text-align: center;
-      }
-      .stat-card.blue {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-      }
-      .stat-card.green {
-        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
-      }
-      .stat-card.orange {
-        background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
-      }
-      .stat-number {
-        font-size: 1.8rem;
-        font-weight: 700;
-        display: block;
-        margin: 0.5rem 0;
-      }
-      .stat-label {
-        font-size: 0.8rem;
-        opacity: 0.9;
-      }
-      .filter-section {
-        background-color: #f8f9fa;
-        padding: 1.5rem;
-        border-radius: 8px;
-        margin-bottom: 2rem;
-      }
-      .filter-group {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        gap: 1rem;
-      }
-      .message-card {
-        border: 1px solid #e9ecef;
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        transition: all 0.3s ease;
-        background-color: white;
-      }
-      .message-card:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        border-color: #dee2e6;
-      }
-      .message-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: start;
-        margin-bottom: 1rem;
-        border-bottom: 1px solid #e9ecef;
-        padding-bottom: 1rem;
-      }
-      .message-title {
-        font-size: 1rem;
-        font-weight: 600;
-        color: #212529;
-        margin: 0;
-      }
-      .message-meta {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-        gap: 1rem;
-        margin: 1rem 0;
-      }
-      .message-meta-item {
-        display: flex;
-        flex-direction: column;
-      }
-      .message-meta-label {
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: #6c757d;
-        text-transform: uppercase;
-        letter-spacing: 0.3px;
-        margin-bottom: 0.25rem;
-      }
-      .message-meta-value {
-        font-size: 0.9rem;
-        color: #212529;
-      }
-      .message-content {
-        background-color: #f8f9fa;
-        padding: 1rem;
-        border-radius: 6px;
-        margin-top: 1rem;
-        max-height: 150px;
-        overflow-y: auto;
-      }
-      .message-preview {
-        color: #212529;
-        line-height: 1.5;
-        word-wrap: break-word;
-      }
-      .recipient-info {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-        margin-top: 1rem;
-      }
-      .recipient-badge {
-        display: inline-block;
-        background-color: #e7f1ff;
-        color: #0d6efd;
-        padding: 0.3rem 0.6rem;
-        border-radius: 4px;
-        font-size: 0.8rem;
-      }
-      .action-buttons {
-        display: flex;
-        gap: 0.5rem;
-        margin-top: 1rem;
-      }
-      .empty-state {
-        text-align: center;
-        padding: 3rem 1rem;
-      }
-      .empty-state-icon {
-        font-size: 3rem;
-        color: #dee2e6;
-        margin-bottom: 1rem;
-      }
-      .empty-state-text {
-        color: #6c757d;
-        margin-bottom: 1rem;
-      }
-      .nav-tabs-custom {
-        border-bottom: 2px solid #e9ecef;
-        margin-bottom: 2rem;
-      }
-      .nav-tabs-custom .nav-link {
-        color: #6c757d;
-        border: none;
-        border-bottom: 3px solid transparent;
-        padding: 0.75rem 1.5rem;
-        cursor: pointer;
-        font-weight: 500;
-        transition: all 0.3s ease;
-      }
-      .nav-tabs-custom .nav-link:hover {
-        color: #0d6efd;
-        border-bottom-color: #0d6efd;
-      }
-      .nav-tabs-custom .nav-link.active {
-        color: #0d6efd;
-        border-bottom-color: #0d6efd;
-      }
-      .tab-pane {
-        display: none;
-      }
-      .tab-pane.active {
-        display: block;
-      }
-      .alert-info-box {
-        background-color: #e7f1ff;
-        border-left: 4px solid #0d6efd;
-        padding: 1rem;
-        border-radius: 4px;
-        margin-bottom: 1.5rem;
-        font-size: 0.9rem;
-        color: #004085;
-      }
-      .message-template-card {
-        border: 1px solid #e9ecef;
-        border-radius: 8px;
-        padding: 1.5rem;
-        margin-bottom: 1rem;
-        background-color: #f8f9fa;
-      }
-      .template-title {
-        font-weight: 600;
-        color: #212529;
-        margin-bottom: 0.5rem;
-      }
-      .template-description {
-        font-size: 0.9rem;
-        color: #6c757d;
-        margin-bottom: 1rem;
-      }
-      .template-preview {
-        background-color: white;
-        padding: 1rem;
-        border-radius: 6px;
-        border-left: 4px solid #0d6efd;
-        font-size: 0.9rem;
-        color: #212529;
-        line-height: 1.5;
-      }
-      .message-stats-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-        gap: 1rem;
-        margin-top: 1rem;
-        padding-top: 1rem;
-        border-top: 1px solid #e9ecef;
-      }
-      .message-stat {
-        text-align: center;
-      }
-      .message-stat-value {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: #0d6efd;
-      }
-      .message-stat-label {
-        font-size: 0.8rem;
-        color: #6c757d;
-        margin-top: 0.25rem;
-      }
-    </style>
-  </head>
+  <style>
+    .messaging-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 20px;
+    }
 
-  <body>
-    <!-- Page wrapper starts -->
-    <div class="page-wrapper">
-      <!-- App header starts -->
-      <div class="app-header d-flex align-items-center">
-        <!-- Toggle buttons starts -->
-        <div class="d-flex">
-          <button class="toggle-sidebar">
-            <i class="ri-menu-line"></i>
-          </button>
-          <button class="pin-sidebar">
-            <i class="ri-menu-line"></i>
-          </button>
-        </div>
-        <!-- Toggle buttons ends -->
+    @media (max-width: 1200px) {
+      .messaging-container {
+        grid-template-columns: 1fr;
+      }
+    }
 
-        <!-- App brand starts -->
-        <div class="app-brand ms-3">
-          <a href="index.html" class="d-lg-block d-none">
-            <img
-              src="assets/images/logo.svg"
-              class="logo"
-              alt="Shankar Diabetes CRM"
-            />
+    .message-composer {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .composer-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2E75B6;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .composer-title i {
+      font-size: 20px;
+    }
+
+    .message-template-btn {
+      display: inline-block;
+      padding: 8px 12px;
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      margin-right: 8px;
+      margin-bottom: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .message-template-btn:hover {
+      background-color: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .message-preview {
+      background-color: #e8f5e9;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-left: 4px solid #4caf50;
+    }
+
+    .message-preview-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .whatsapp-icon {
+      width: 40px;
+      height: 40px;
+      background-color: #25d366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 20px;
+    }
+
+    .message-preview-name {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .message-preview-status {
+      font-size: 12px;
+      color: #999;
+    }
+
+    .message-preview-text {
+      background: white;
+      padding: 12px;
+      border-radius: 8px;
+      color: #333;
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .message-preview-time {
+      font-size: 11px;
+      color: #999;
+      text-align: right;
+    }
+
+    .recipient-selector {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .selector-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2E75B6;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      padding: 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .filter-tab.active {
+      background-color: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .filter-section {
+      margin-bottom: 20px;
+    }
+
+    .filter-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+      display: block;
+      text-transform: uppercase;
+    }
+
+    .filter-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .filter-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+    }
+
+    .filter-checkbox:hover {
+      background-color: #f5f5f5;
+    }
+
+    .filter-checkbox input {
+      cursor: pointer;
+    }
+
+    .filter-checkbox label {
+      cursor: pointer;
+      margin: 0;
+      font-size: 13px;
+    }
+
+    .recipient-count {
+      background-color: #f0f0f0;
+      padding: 12px;
+      border-radius: 6px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .recipient-count-number {
+      font-size: 28px;
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    .recipient-count-label {
+      font-size: 12px;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    .recipient-list {
+      max-height: 300px;
+      overflow-y: auto;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 8px;
+      margin-bottom: 15px;
+    }
+
+    .recipient-item {
+      display: flex;
+      align-items: center;
+      padding: 8px;
+      border-bottom: 1px solid #f0f0f0;
+      font-size: 13px;
+    }
+
+    .recipient-item:last-child {
+      border-bottom: none;
+    }
+
+    .recipient-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background-color: #667eea;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      margin-right: 10px;
+      font-size: 12px;
+    }
+
+    .recipient-info {
+      flex: 1;
+    }
+
+    .recipient-name {
+      font-weight: 500;
+      color: #333;
+    }
+
+    .recipient-category {
+      font-size: 11px;
+      color: #999;
+    }
+
+    .messaging-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn-schedule {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .quick-templates {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .template-card {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 15px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .template-card:hover {
+      border-color: #667eea;
+      box-shadow: 0 2px 8px rgba(102, 126, 234, 0.2);
+    }
+
+    .template-type {
+      display: inline-block;
+      padding: 4px 8px;
+      background-color: #667eea;
+      color: white;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .template-type.reminder {
+      background-color: #17a2b8;
+    }
+
+    .template-type.alert {
+      background-color: #dc3545;
+    }
+
+    .template-type.education {
+      background-color: #28a745;
+    }
+
+    .template-type.followup {
+      background-color: #ff9800;
+    }
+
+    .template-text {
+      font-size: 13px;
+      color: #333;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+
+    .template-use {
+      text-align: center;
+      padding-top: 10px;
+      border-top: 1px solid #f0f0f0;
+      color: #667eea;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .message-history {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .history-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2E75B6;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .message-log-item {
+      display: flex;
+      gap: 15px;
+      padding: 15px;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background-color 0.2s ease;
+    }
+
+    .message-log-item:hover {
+      background-color: #f9f9f9;
+    }
+
+    .message-log-item:last-child {
+      border-bottom: none;
+    }
+
+    .log-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background-color: #667eea;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .log-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .log-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 5px;
+    }
+
+    .log-name {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .log-time {
+      font-size: 11px;
+      color: #999;
+    }
+
+    .log-type {
+      display: inline-block;
+      padding: 3px 8px;
+      background-color: #f0f0f0;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 600;
+      color: #666;
+      margin-right: 8px;
+    }
+
+    .log-status {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 3px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .status-sent {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .status-delivered {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+
+    .status-read {
+      background-color: #cfe2ff;
+      color: #084298;
+    }
+
+    .status-failed {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+
+    .log-message {
+      font-size: 13px;
+      color: #555;
+      margin-top: 8px;
+      padding: 8px;
+      background-color: #f9f9f9;
+      border-left: 3px solid #667eea;
+      border-radius: 3px;
+    }
+
+    .stats-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .stat-mini {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .stat-mini-number {
+      font-size: 24px;
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    .stat-mini-label {
+      font-size: 11px;
+      color: #999;
+      margin-top: 5px;
+      text-transform: uppercase;
+    }
+
+    .compose-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+
+    .compose-tab {
+      padding: 10px 15px;
+      border: none;
+      background: none;
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      color: #999;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: all 0.3s ease;
+    }
+
+    .compose-tab.active {
+      color: #667eea;
+      border-bottom-color: #667eea;
+    }
+
+    .compose-content {
+      display: none;
+    }
+
+    .compose-content.active {
+      display: block;
+    }
+
+    .scheduling-section {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      margin-top: 15px;
+    }
+
+    .scheduling-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .scheduling-option:last-child {
+      margin-bottom: 0;
+    }
+
+    .scheduling-option input {
+      cursor: pointer;
+    }
+
+    .scheduling-option label {
+      cursor: pointer;
+      margin: 0;
+      flex: 1;
+    }
+
+    .scheduling-datetime {
+      margin-top: 10px;
+      display: none;
+      padding: 10px;
+      background: white;
+      border-radius: 6px;
+    }
+
+    .scheduling-datetime.show {
+      display: block;
+    }
+
+    .scheduling-datetime .form-group {
+      margin-bottom: 10px;
+    }
+
+    .alert-box {
+      display: flex;
+      gap: 12px;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+
+    .alert-box.info {
+      background-color: #e7f3ff;
+      border-left: 4px solid #2196F3;
+    }
+
+    .alert-box.warning {
+      background-color: #fff8e1;
+      border-left: 4px solid #ffc107;
+    }
+
+    .alert-box.success {
+      background-color: #e8f5e9;
+      border-left: 4px solid #4caf50;
+    }
+
+    .alert-box i {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .alert-box.info i {
+      color: #2196F3;
+    }
+
+    .alert-box.warning i {
+      color: #ffc107;
+    }
+
+    .alert-box.success i {
+      color: #4caf50;
+    }
+
+    .alert-box p {
+      margin: 0;
+      font-size: 13px;
+    }
+
+    .character-count {
+      font-size: 11px;
+      color: #999;
+      margin-top: 5px;
+      text-align: right;
+    }
+
+    .emoji-picker {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      padding: 10px;
+      background-color: #f9f9f9;
+      border-radius: 6px;
+      margin-bottom: 10px;
+    }
+
+    .emoji-btn {
+      width: 32px;
+      height: 32px;
+      border: 1px solid #ddd;
+      background: white;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .emoji-btn:hover {
+      transform: scale(1.2);
+      background-color: #f0f0f0;
+    }
+
+    .text-area-wrapper {
+      position: relative;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Page wrapper starts -->
+  <div class="page-wrapper">
+
+    <!-- App header starts -->
+    <div class="app-header d-flex align-items-center">
+
+      <!-- Toggle buttons starts -->
+      <div class="d-flex">
+        <button class="toggle-sidebar">
+          <i class="ri-menu-line"></i>
+        </button>
+        <button class="pin-sidebar">
+          <i class="ri-menu-line"></i>
+        </button>
+      </div>
+      <!-- Toggle buttons ends -->
+
+      <!-- App brand starts -->
+      <div class="app-brand ms-3">
+        <a href="index.html" class="d-lg-block d-none">
+          <img src="assets/images/logo.svg" class="logo" alt="Shanker Diabetes CRM">
+        </a>
+        <a href="index.html" class="d-lg-none d-md-block">
+          <img src="assets/images/logo-sm.svg" class="logo" alt="Shanker Diabetes CRM">
+        </a>
+      </div>
+      <!-- App brand ends -->
+
+      <!-- App header actions starts -->
+      <div class="header-actions">
+        <!-- Header user settings starts -->
+        <div class="dropdown ms-2">
+          <a id="userSettings" class="dropdown-toggle d-flex align-items-center" href="#!" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="avatar-box">AS<span class="status busy"></span></div>
           </a>
-          <a href="index.html" class="d-lg-none d-md-block">
-            <img
-              src="assets/images/logo-sm.svg"
-              class="logo"
-              alt="Shankar Diabetes CRM"
-            />
-          </a>
-        </div>
-        <!-- App brand ends -->
-
-        <!-- App header actions starts -->
-        <div class="header-actions">
-          <!-- Search container starts -->
-          <div class="search-container d-lg-block d-none mx-3">
-            <input
-              type="text"
-              class="form-control"
-              id="searchId"
-              placeholder="Search messages..."
-            />
-            <i class="ri-search-line"></i>
-          </div>
-          <!-- Search container ends -->
-
-          <!-- Header user settings starts -->
-          <div class="dropdown ms-2">
-            <a
-              id="userSettings"
-              class="dropdown-toggle d-flex align-items-center"
-              href="#!"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              <div class="avatar-box">AS<span class="status busy"></span></div>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end shadow-lg">
-              <div class="px-3 py-2">
-                <span class="small">Admin</span>
-                <h6 class="m-0">Dr. Anand Shankar</h6>
-              </div>
-              <div class="mx-3 my-2 d-grid">
-                <a href="login.html" class="btn btn-danger">Logout</a>
-              </div>
+          <div class="dropdown-menu dropdown-menu-end shadow-lg">
+            <div class="px-3 py-2">
+              <span class="small">Admin</span>
+              <h6 class="m-0">Anand Shankar</h6>
+            </div>
+            <div class="mx-3 my-2 d-grid">
+              <a href="login.html" class="btn btn-danger">Logout</a>
             </div>
           </div>
-          <!-- Header user settings ends -->
         </div>
-        <!-- App header actions ends -->
-      </div>
-      <!-- App header ends -->
+        <!-- Header user settings ends -->
 
-      <!-- Main container starts -->
-      <div class="main-container">
-        <!-- Sidebar wrapper starts -->
-        <nav id="sidebar" class="sidebar-wrapper">
+      </div>
+      <!-- App header actions ends -->
+
+    </div>
+    <!-- App header ends -->
+
+    <!-- Main container starts -->
+    <div class="main-container">
+
+      <!-- Sidebar wrapper starts -->
+       <nav id="sidebar" class="sidebar-wrapper">
           <!-- Sidebar profile starts -->
           <div class="sidebar-profile">
             <div class="m-0">
@@ -462,7 +805,7 @@
                 </ul>
               </li>
               <li class="active current-page">
-                <a href="messaging.html" class="active-sub">
+                <a href="messaging.html">
                   <i class="ri-message-3-line"></i>
                   <span class="menu-text">WhatsApp Messages</span>
                 </a>
@@ -511,941 +854,661 @@
           </div>
           <!-- Sidebar contact ends -->
         </nav>
-        <!-- Sidebar wrapper ends -->
+      <!-- Sidebar wrapper ends -->
 
-        <!-- App container starts -->
-        <div class="app-container">
-          <!-- App hero header starts -->
-          <div class="app-hero-header d-flex align-items-center">
-            <!-- Breadcrumb starts -->
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <i class="ri-home-8-line lh-1 pe-3 me-3 border-end"></i>
-                <a href="index.html">Home</a>
-              </li>
-              <li class="breadcrumb-item text-primary" aria-current="page">
-                WhatsApp Messaging
-              </li>
-            </ol>
-            <!-- Breadcrumb ends -->
+      <!-- App container starts -->
+      <div class="app-container">
 
-            <!-- Action Button -->
-            <div class="ms-auto d-lg-flex d-none gap-2">
-              <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#sendMessageModal">
-                <i class="ri-whatsapp-line me-2"></i>Send New Message
-              </button>
+        <!-- App hero header starts -->
+        <div class="app-hero-header d-flex align-items-center">
+
+          <!-- Breadcrumb starts -->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <i class="ri-home-8-line lh-1 pe-3 me-3 border-end"></i>
+              <a href="index.html">Home</a>
+            </li>
+            <li class="breadcrumb-item text-primary" aria-current="page">
+              WhatsApp Messaging
+            </li>
+          </ol>
+          <!-- Breadcrumb ends -->
+        </div>
+        <!-- App Hero header ends -->
+
+        <!-- App body starts -->
+        <div class="app-body">
+
+          <!-- STATISTICS SECTION -->
+          <div class="stats-row">
+            <div class="stat-mini">
+              <div class="stat-mini-number">256</div>
+              <div class="stat-mini-label">Total Sent</div>
+            </div>
+            <div class="stat-mini">
+              <div class="stat-mini-number">248</div>
+              <div class="stat-mini-label">Delivered</div>
+            </div>
+            <div class="stat-mini">
+              <div class="stat-mini-number">212</div>
+              <div class="stat-mini-label">Read</div>
+            </div>
+            <div class="stat-mini">
+              <div class="stat-mini-number">4</div>
+              <div class="stat-mini-label">Failed</div>
             </div>
           </div>
-          <!-- App Hero header ends -->
 
-          <!-- App body starts -->
-          <div class="app-body">
-            <!-- Statistics Cards -->
-            <div class="stats-cards">
-              <div class="stat-card">
-                <i class="ri-message-3-line" style="font-size: 2rem;"></i>
-                <span class="stat-number">1,247</span>
-                <span class="stat-label">Total Messages Sent</span>
-              </div>
-              <div class="stat-card blue">
-                <i class="ri-checkbox-circle-line" style="font-size: 2rem;"></i>
-                <span class="stat-number">1,156</span>
-                <span class="stat-label">Delivered</span>
-              </div>
-              <div class="stat-card orange">
-                <i class="ri-time-line" style="font-size: 2rem;"></i>
-                <span class="stat-number">67</span>
-                <span class="stat-label">Scheduled</span>
-              </div>
-              <div class="stat-card green">
-                <i class="ri-user-received-line" style="font-size: 2rem;"></i>
-                <span class="stat-number">24</span>
-                <span class="stat-label">Pending</span>
-              </div>
-            </div>
+          <!-- ALERT BOX -->
+          <div class="alert-box info">
+            <i class="ri-information-line"></i>
+            <p>
+              <strong>Smart Messaging:</strong> Messages are automatically sent based on patient category, health status, and scheduled reminders. 
+              You can also send custom messages to specific patient segments. All messages are logged for compliance and tracking.
+            </p>
+          </div>
 
-            <!-- Tab Navigation -->
-            <div class="nav-tabs-custom">
-              <button class="nav-link active" data-tab="all-messages">
-                <i class="ri-mail-line me-2"></i>All Messages
-              </button>
-              <button class="nav-link" data-tab="templates">
-                <i class="ri-layout-grid-line me-2"></i>Message Templates
-              </button>
-              <button class="nav-link" data-tab="scheduled">
-                <i class="ri-time-line me-2"></i>Scheduled Messages
-              </button>
-            </div>
+          <!-- MAIN MESSAGING CONTAINER -->
+          <div class="messaging-container">
 
-            <!-- TAB 1: ALL MESSAGES -->
-            <div class="tab-pane active" id="all-messages">
-              <!-- Info Box -->
-              <div class="alert-info-box">
-                <i class="ri-information-line me-2"></i>
-                Manage all WhatsApp messages sent to patients. Send text, audio, video, and document messages with delivery tracking.
+            <!-- LEFT COLUMN: MESSAGE COMPOSER -->
+            <div class="message-composer">
+
+              <div class="composer-title">
+                <i class="ri-message-3-line"></i>
+                Compose Message
               </div>
 
-              <!-- Filter Section -->
-              <div class="filter-section">
-                <h6 class="mb-3">
-                  <i class="ri-filter-line me-2"></i>Filter Messages
-                </h6>
-                <div class="filter-group">
-                  <div>
-                    <label class="form-label">Message Type</label>
-                    <select class="form-select" id="filterMessageType">
-                      <option value="">All Types</option>
-                      <option value="text">Text Message</option>
-                      <option value="image">Image</option>
-                      <option value="video">Video</option>
-                      <option value="audio">Audio</option>
-                      <option value="document">Document</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label class="form-label">Status</label>
-                    <select class="form-select" id="filterStatus">
-                      <option value="">All Status</option>
-                      <option value="scheduled">Scheduled</option>
-                      <option value="sent">Sent</option>
-                      <option value="delivered">Delivered</option>
-                      <option value="failed">Failed</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label class="form-label">Recipient Type</label>
-                    <select class="form-select" id="filterRecipient">
-                      <option value="">All Recipients</option>
-                      <option value="regular">Regular Patients</option>
-                      <option value="non-regular">Non-Regular Patients</option>
-                      <option value="individual">Individual Patient</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label class="form-label">Date Range</label>
-                    <input type="date" class="form-control" id="filterDate" />
-                  </div>
-                </div>
-              </div>
-
-              <!-- Messages List -->
-              <div id="messagesList">
-                <!-- Message Card 1 -->
-                <div class="message-card">
-                  <div class="message-header">
-                    <div>
-                      <h5 class="message-title">Medication Reminder - Evening Dose</h5>
-                      <small class="text-muted">Message ID: MSG-2024-001</small>
-                    </div>
-                    <div>
-                      <span class="status-badge status-delivered">Delivered</span>
-                    </div>
-                  </div>
-
-                  <div class="message-meta">
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Message Type</span>
-                      <span class="message-type-badge text">Text</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Sent Date</span>
-                      <span class="message-meta-value">18 Jan 2024, 6:00 PM</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Recipients</span>
-                      <span class="message-meta-value">156 patients</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Delivery Rate</span>
-                      <span class="message-meta-value">98%</span>
-                    </div>
-                  </div>
-
-                  <div class="message-content">
-                    <div class="message-preview">
-                      🕐 <strong>Evening Medication Reminder</strong><br><br>
-                      Hello! It's time for your evening medication dose. Please take your prescribed diabetes medication as instructed by your doctor. Stay healthy! 💊
-                    </div>
-                  </div>
-
-                  <div class="recipient-info">
-                    <span class="recipient-badge">
-                      <i class="ri-user-line me-1"></i>Regular Patients
-                    </span>
-                    <span class="recipient-badge">
-                      <i class="ri-map-pin-line me-1"></i>Delhi, Mumbai, Bangalore
-                    </span>
-                  </div>
-
-                  <div class="message-stats-grid">
-                    <div class="message-stat">
-                      <div class="message-stat-value">156</div>
-                      <div class="message-stat-label">Sent</div>
-                    </div>
-                    <div class="message-stat">
-                      <div class="message-stat-value">153</div>
-                      <div class="message-stat-label">Delivered</div>
-                    </div>
-                    <div class="message-stat">
-                      <div class="message-stat-value">89</div>
-                      <div class="message-stat-label">Reads</div>
-                    </div>
-                    <div class="message-stat">
-                      <div class="message-stat-value">3</div>
-                      <div class="message-stat-label">Failed</div>
-                    </div>
-                  </div>
-
-                  <div class="action-buttons">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">
-                      <i class="ri-eye-line me-1"></i>View Details
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-info">
-                      <i class="ri-repeat-line me-1"></i>Resend
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary">
-                      <i class="ri-download-line me-1"></i>Export
-                    </a>
-                  </div>
-                </div>
-
-                <!-- Message Card 2 -->
-                <div class="message-card">
-                  <div class="message-header">
-                    <div>
-                      <h5 class="message-title">Health Tip - Blood Glucose Monitoring</h5>
-                      <small class="text-muted">Message ID: MSG-2024-002</small>
-                    </div>
-                    <div>
-                      <span class="status-badge status-delivered">Delivered</span>
-                    </div>
-                  </div>
-
-                  <div class="message-meta">
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Message Type</span>
-                      <span class="message-type-badge image">Image + Text</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Sent Date</span>
-                      <span class="message-meta-value">17 Jan 2024, 10:00 AM</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Recipients</span>
-                      <span class="message-meta-value">245 patients</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Delivery Rate</span>
-                      <span class="message-meta-value">100%</span>
-                    </div>
-                  </div>
-
-                  <div class="message-content">
-                    <div class="message-preview">
-                      💡 <strong>Daily Health Tip: Blood Glucose Monitoring</strong><br><br>
-                      Regular blood glucose monitoring is essential for effective diabetes management. Check your levels:<br>
-                      • Fasting: 80-130 mg/dL<br>
-                      • After meals: <180 mg/dL<br><br>
-                      [Image attached showing glucose monitoring guide]
-                    </div>
-                  </div>
-
-                  <div class="recipient-info">
-                    <span class="recipient-badge">
-                      <i class="ri-user-line me-1"></i>All Patients
-                    </span>
-                  </div>
-
-                  <div class="message-stats-grid">
-                    <div class="message-stat">
-                      <div class="message-stat-value">245</div>
-                      <div class="message-stat-label">Sent</div>
-                    </div>
-                    <div class="message-stat">
-                      <div class="message-stat-value">245</div>
-                      <div class="message-stat-label">Delivered</div>
-                    </div>
-                    <div class="message-stat">
-                      <div class="message-stat-value">178</div>
-                      <div class="message-stat-label">Reads</div>
-                    </div>
-                    <div class="message-stat">
-                      <div class="message-stat-value">0</div>
-                      <div class="message-stat-label">Failed</div>
-                    </div>
-                  </div>
-
-                  <div class="action-buttons">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">
-                      <i class="ri-eye-line me-1"></i>View Details
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-info">
-                      <i class="ri-repeat-line me-1"></i>Resend
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary">
-                      <i class="ri-download-line me-1"></i>Export
-                    </a>
-                  </div>
-                </div>
-
-                <!-- Message Card 3 -->
-                <div class="message-card">
-                  <div class="message-header">
-                    <div>
-                      <h5 class="message-title">Appointment Confirmation - Follow-up Consultation</h5>
-                      <small class="text-muted">Message ID: MSG-2024-003</small>
-                    </div>
-                    <div>
-                      <span class="status-badge status-sent">Sent</span>
-                    </div>
-                  </div>
-
-                  <div class="message-meta">
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Message Type</span>
-                      <span class="message-type-badge text">Text</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Sent Date</span>
-                      <span class="message-meta-value">19 Jan 2024, 2:30 PM</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Recipients</span>
-                      <span class="message-meta-value">18 patients</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Delivery Rate</span>
-                      <span class="message-meta-value">89%</span>
-                    </div>
-                  </div>
-
-                  <div class="message-content">
-                    <div class="message-preview">
-                      ✅ <strong>Appointment Confirmed</strong><br><br>
-                      Your consultation appointment is confirmed on 22 Jan 2024 at 10:00 AM with Dr. Anand Shankar. Please arrive 10 minutes early. For video consultation, you'll receive the link 30 minutes before. Contact: +91-XXXX-XXXX-XX
-                    </div>
-                  </div>
-
-                  <div class="recipient-info">
-                    <span class="recipient-badge">
-                      <i class="ri-user-line me-1"></i>Individual Patients
-                    </span>
-                  </div>
-
-                  <div class="message-stats-grid">
-                    <div class="message-stat">
-                      <div class="message-stat-value">18</div>
-                      <div class="message-stat-label">Sent</div>
-                    </div>
-                    <div class="message-stat">
-                      <div class="message-stat-value">16</div>
-                      <div class="message-stat-label">Delivered</div>
-                    </div>
-                    <div class="message-stat">
-                      <div class="message-stat-value">12</div>
-                      <div class="message-stat-label">Reads</div>
-                    </div>
-                    <div class="message-stat">
-                      <div class="message-stat-value">2</div>
-                      <div class="message-stat-label">Failed</div>
-                    </div>
-                  </div>
-
-                  <div class="action-buttons">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">
-                      <i class="ri-eye-line me-1"></i>View Details
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-info">
-                      <i class="ri-repeat-line me-1"></i>Resend
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-secondary">
-                      <i class="ri-download-line me-1"></i>Export
-                    </a>
-                  </div>
-                </div>
-
-                <!-- Message Card 4 -->
-                <div class="message-card">
-                  <div class="message-header">
-                    <div>
-                      <h5 class="message-title">Diet & Nutrition Tips - Healthy Eating</h5>
-                      <small class="text-muted">Message ID: MSG-2024-004</small>
-                    </div>
-                    <div>
-                      <span class="status-badge status-scheduled">Scheduled</span>
-                    </div>
-                  </div>
-
-                  <div class="message-meta">
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Message Type</span>
-                      <span class="message-type-badge video">Video + Text</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Scheduled For</span>
-                      <span class="message-meta-value">22 Jan 2024, 8:00 AM</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Recipients</span>
-                      <span class="message-meta-value">89 patients</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Status</span>
-                      <span class="message-meta-value">Pending</span>
-                    </div>
-                  </div>
-
-                  <div class="message-content">
-                    <div class="message-preview">
-                      🥗 <strong>Nutritionist's Tip: Healthy Eating for Diabetes</strong><br><br>
-                      Watch our short video on diabetes-friendly meal planning. Learn about portion control, best food choices, and tips for healthy cooking. [Video attached]
-                    </div>
-                  </div>
-
-                  <div class="recipient-info">
-                    <span class="recipient-badge">
-                      <i class="ri-user-line me-1"></i>Regular Patients
-                    </span>
-                    <span class="recipient-badge">
-                      <i class="ri-map-pin-line me-1"></i>Type 2 Diabetes
-                    </span>
-                  </div>
-
-                  <div class="message-stats-grid">
-                    <div class="message-stat">
-                      <div class="message-stat-value">89</div>
-                      <div class="message-stat-label">To Send</div>
-                    </div>
-                    <div class="message-stat">
-                      <div class="message-stat-value">-</div>
-                      <div class="message-stat-label">Delivered</div>
-                    </div>
-                    <div class="message-stat">
-                      <div class="message-stat-value">-</div>
-                      <div class="message-stat-label">Reads</div>
-                    </div>
-                    <div class="message-stat">
-                      <div class="message-stat-value">0</div>
-                      <div class="message-stat-label">Failed</div>
-                    </div>
-                  </div>
-
-                  <div class="action-buttons">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">
-                      <i class="ri-eye-line me-1"></i>View Details
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-warning">
-                      <i class="ri-edit-line me-1"></i>Edit
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-danger">
-                      <i class="ri-close-line me-1"></i>Cancel
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- TAB 2: MESSAGE TEMPLATES -->
-            <div class="tab-pane" id="templates">
-              <div class="alert-info-box">
-                <i class="ri-information-line me-2"></i>
-                Use pre-created message templates for quick and consistent communication with patients. Customize with patient names and details.
-              </div>
-
-              <div class="mb-3">
-                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createTemplateModal">
-                  <i class="ri-add-line me-2"></i>Create New Template
+              <!-- COMPOSE TABS -->
+              <div class="compose-tabs">
+                <button class="compose-tab active" onclick="switchTab(event, 'templates')">
+                  <i class="ri-file-list-line"></i> Templates
+                </button>
+                <button class="compose-tab" onclick="switchTab(event, 'custom')">
+                  <i class="ri-edit-line"></i> Custom Message
                 </button>
               </div>
 
-              <!-- Template Cards -->
-              <div class="message-template-card">
-                <div class="template-title">
-                  <i class="ri-alarm-line me-2"></i>Morning Medication Reminder
-                </div>
-                <div class="template-description">
-                  Sends daily reminder at 8:00 AM for morning medication
-                </div>
-                <div class="template-preview">
-                  🕐 Good Morning {{PATIENT_NAME}}!<br><br>
-                  It's time for your morning medication. Please take your prescribed diabetes medication as instructed by your doctor. Remember, consistency is key to managing your diabetes effectively. 💊<br><br>
-                  Stay healthy!<br>
-                  Shankar Diabetes Care Center
-                </div>
-                <div class="action-buttons mt-3">
-                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">
-                    <i class="ri-eye-line me-1"></i>Preview
-                  </a>
-                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-info">
-                    <i class="ri-send-plane-line me-1"></i>Send Now
-                  </a>
-                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-warning">
-                    <i class="ri-edit-line me-1"></i>Edit
-                  </a>
-                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-danger">
-                    <i class="ri-delete-bin-line me-1"></i>Delete
-                  </a>
+              <!-- TAB 1: TEMPLATES -->
+              <div id="templates" class="compose-content active">
+                <p style="font-size: 13px; color: #666; margin-bottom: 15px;">
+                  Choose a pre-defined template or customize it with patient-specific details.
+                </p>
+
+                <div class="quick-templates">
+                  <!-- Template 1: Check-up Reminder -->
+                  <div class="template-card" onclick="loadTemplate(0)">
+                    <span class="template-type reminder">Check-up Reminder</span>
+                    <div class="template-text">
+                      "Hi {patient_name}! 👋 It's time for your monthly diabetes check-up. Book your appointment now using the link below..."
+                    </div>
+                    <div class="template-use">Use Template →</div>
+                  </div>
+
+                  <!-- Template 2: Health Alert -->
+                  <div class="template-card" onclick="loadTemplate(1)">
+                    <span class="template-type alert">Health Alert</span>
+                    <div class="template-text">
+                      "⚠️ Alert: Your recent HbA1c level ({hba1c}%) is higher than target. Please contact Dr. {doctor} immediately..."
+                    </div>
+                    <div class="template-use">Use Template →</div>
+                  </div>
+
+                  <!-- Template 3: Medication Reminder -->
+                  <div class="template-card" onclick="loadTemplate(2)">
+                    <span class="template-type reminder">Medication Reminder</span>
+                    <div class="template-text">
+                      "💊 Medication Reminder: Don't forget to take your {medication} at {time} today. Stay consistent! 💪"
+                    </div>
+                    <div class="template-use">Use Template →</div>
+                  </div>
+
+                  <!-- Template 4: Education Content -->
+                  <div class="template-card" onclick="loadTemplate(3)">
+                    <span class="template-type education">Education</span>
+                    <div class="template-text">
+                      "📚 Did you know? {education_fact}. Learn more by taking our diabetes education quiz: {link}"
+                    </div>
+                    <div class="template-use">Use Template →</div>
+                  </div>
+
+                  <!-- Template 5: Appointment Reminder -->
+                  <div class="template-card" onclick="loadTemplate(4)">
+                    <span class="template-type followup">Appointment Reminder</span>
+                    <div class="template-text">
+                      "📅 Reminder: Your appointment with {doctor} is on {date} at {time}. Reply OK to confirm. {video_link}"
+                    </div>
+                    <div class="template-use">Use Template →</div>
+                  </div>
+
+                  <!-- Template 6: Test Results -->
+                  <div class="template-card" onclick="loadTemplate(5)">
+                    <span class="template-type followup">Test Results</span>
+                    <div class="template-text">
+                      "📋 Your lab results are ready! View them in the app: {report_link}. Scheduled consultation: {date}"
+                    </div>
+                    <div class="template-use">Use Template →</div>
+                  </div>
                 </div>
               </div>
 
-              <div class="message-template-card">
-                <div class="template-title">
-                  <i class="ri-calendar-check-line me-2"></i>Appointment Confirmation
+              <!-- TAB 2: CUSTOM MESSAGE -->
+              <div id="custom" class="compose-content">
+                <p style="font-size: 13px; color: #666; margin-bottom: 12px;">
+                  Write a custom message or edit a template below.
+                </p>
+
+                <div style="margin-bottom: 12px;">
+                  <label style="font-size: 12px; font-weight: 600; color: #333; display: block; margin-bottom: 8px;">
+                    Quick Emojis
+                  </label>
+                  <div class="emoji-picker">
+                    <button class="emoji-btn" onclick="insertEmoji('👋')">👋</button>
+                    <button class="emoji-btn" onclick="insertEmoji('💊')">💊</button>
+                    <button class="emoji-btn" onclick="insertEmoji('📚')">📚</button>
+                    <button class="emoji-btn" onclick="insertEmoji('❤️')">❤️</button>
+                    <button class="emoji-btn" onclick="insertEmoji('⚠️')">⚠️</button>
+                    <button class="emoji-btn" onclick="insertEmoji('✅')">✅</button>
+                    <button class="emoji-btn" onclick="insertEmoji('📅')">📅</button>
+                    <button class="emoji-btn" onclick="insertEmoji('🏥')">🏥</button>
+                    <button class="emoji-btn" onclick="insertEmoji('💪')">💪</button>
+                    <button class="emoji-btn" onclick="insertEmoji('😊')">😊</button>
+                  </div>
                 </div>
-                <div class="template-description">
-                  Confirms appointment details with patient
+
+                <div class="form-group">
+                  <label style="font-size: 12px; font-weight: 600; color: #333;">Message Text <span style="color: #dc3545;">*</span></label>
+                  <div class="text-area-wrapper">
+                    <textarea class="form-control" id="messageText" placeholder="Type your message here..." 
+                      onkeyup="updatePreview(); updateCharCount();" maxlength="1000"></textarea>
+                    <div class="character-count">
+                      <span id="charCount">0</span>/1000 characters
+                    </div>
+                  </div>
                 </div>
-                <div class="template-preview">
-                  ✅ <strong>Appointment Confirmed</strong><br><br>
-                  Dear {{PATIENT_NAME}},<br><br>
-                  Your consultation with {{DOCTOR_NAME}} is confirmed on {{APPOINTMENT_DATE}} at {{APPOINTMENT_TIME}}.<br><br>
-                  📍 Location: {{CLINIC_ADDRESS}}<br>
-                  📞 Contact: {{PHONE_NUMBER}}<br><br>
-                  Please arrive 10 minutes early. For any changes, contact us immediately.<br><br>
-                  Thank you,<br>
-                  Shankar Diabetes Care Center
-                </div>
-                <div class="action-buttons mt-3">
-                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">
-                    <i class="ri-eye-line me-1"></i>Preview
-                  </a>
-                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-info">
-                    <i class="ri-send-plane-line me-1"></i>Send Now
-                  </a>
-                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-warning">
-                    <i class="ri-edit-line me-1"></i>Edit
-                  </a>
-                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-danger">
-                    <i class="ri-delete-bin-line me-1"></i>Delete
-                  </a>
+
+                <div class="alert-box warning" style="margin-bottom: 15px;">
+                  <i class="ri-lightbulb-line"></i>
+                  <p><strong>Pro Tip:</strong> Use {patient_name}, {hba1c}, {doctor}, {date}, {time} for auto-fill variables</p>
                 </div>
               </div>
 
-              <div class="message-template-card">
-                <div class="template-title">
-                  <i class="ri-lightbulb-line me-2"></i>Health Tip - Exercise Routine
+              <!-- MESSAGE PREVIEW -->
+              <div class="message-preview">
+                <div class="message-preview-header">
+                  <div class="whatsapp-icon">
+                    <i class="ri-whatsapp-line"></i>
+                  </div>
+                  <div>
+                    <div class="message-preview-name">Raj Singh (Sample)</div>
+                    <div class="message-preview-status">Today at 2:30 PM</div>
+                  </div>
                 </div>
-                <div class="template-description">
-                  Weekly health tips for diabetes management
+                <div class="message-preview-text" id="previewText">
+                  Message preview will appear here...
                 </div>
-                <div class="template-preview">
-                  💪 <strong>Weekly Health Tip: Stay Active</strong><br><br>
-                  Hi {{PATIENT_NAME}},<br><br>
-                  Did you know that regular physical activity helps manage blood sugar levels? Here are today's tips:<br><br>
-                  • Take a 30-minute walk daily<br>
-                  • Do light stretching exercises<br>
-                  • Stay hydrated throughout the day<br><br>
-                  Your effort today is your health tomorrow! 🏃‍♂️<br><br>
-                  Keep up the great work!
-                </div>
-                <div class="action-buttons mt-3">
-                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">
-                    <i class="ri-eye-line me-1"></i>Preview
-                  </a>
-                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-info">
-                    <i class="ri-send-plane-line me-1"></i>Send Now
-                  </a>
-                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-warning">
-                    <i class="ri-edit-line me-1"></i>Edit
-                  </a>
-                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-danger">
-                    <i class="ri-delete-bin-line me-1"></i>Delete
-                  </a>
+                <div class="message-preview-time">
+                  <i class="ri-check-double-line"></i> Read
                 </div>
               </div>
 
-              <div class="message-template-card">
-                <div class="template-title">
-                  <i class="ri-file-text-line me-2"></i>Lab Report Results
+              <!-- SCHEDULING SECTION -->
+              <div class="scheduling-section">
+                <label style="font-size: 12px; font-weight: 600; color: #333; display: block; margin-bottom: 12px;">
+                  <i class="ri-time-line"></i> Send Timing
+                </label>
+
+                <div class="scheduling-option">
+                  <input type="radio" name="timing" id="sendNow" value="now" checked onchange="toggleScheduling()">
+                  <label for="sendNow">Send Immediately</label>
                 </div>
-                <div class="template-description">
-                  Notifies patient about available lab report results
+
+                <div class="scheduling-option">
+                  <input type="radio" name="timing" id="sendScheduled" value="scheduled" onchange="toggleScheduling()">
+                  <label for="sendScheduled">Schedule for Later</label>
                 </div>
-                <div class="template-preview">
-                  📊 <strong>Your Lab Report is Ready</strong><br><br>
-                  Dear {{PATIENT_NAME}},<br><br>
-                  Your recent lab report from {{TEST_DATE}} is now available. Your {{TEST_TYPE}} results show:<br><br>
-                  📈 Status: {{TEST_STATUS}}<br>
-                  📋 {{TEST_PARAMETER}}: {{TEST_VALUE}} {{TEST_UNIT}}<br><br>
-                  {{DOCTOR_RECOMMENDATION}}<br><br>
-                  Please schedule a follow-up appointment to discuss your results.<br><br>
-                  Best regards,<br>
-                  {{DOCTOR_NAME}}
+
+                <div class="scheduling-option">
+                  <input type="radio" name="timing" id="sendRecurring" value="recurring" onchange="toggleScheduling()">
+                  <label for="sendRecurring">Recurring (Automated)</label>
                 </div>
-                <div class="action-buttons mt-3">
-                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">
-                    <i class="ri-eye-line me-1"></i>Preview
-                  </a>
-                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-info">
-                    <i class="ri-send-plane-line me-1"></i>Send Now
-                  </a>
-                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-warning">
-                    <i class="ri-edit-line me-1"></i>Edit
-                  </a>
-                  <a href="javascript:void(0);" class="btn btn-sm btn-outline-danger">
-                    <i class="ri-delete-bin-line me-1"></i>Delete
-                  </a>
+
+                <div class="scheduling-datetime" id="scheduledDateTime">
+                  <div class="form-group">
+                    <label style="font-size: 12px; font-weight: 600;">Date & Time</label>
+                    <input type="datetime-local" class="form-control">
+                  </div>
+                </div>
+
+                <div class="scheduling-datetime" id="recurringSchedule">
+                  <div class="form-group">
+                    <label style="font-size: 12px; font-weight: 600;">Frequency</label>
+                    <select class="form-select" style="font-size: 13px;">
+                      <option>Daily</option>
+                      <option>Weekly (Every Monday)</option>
+                      <option>Monthly (1st of Month)</option>
+                      <!-- <option>Custom</option> -->
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label style="font-size: 12px; font-weight: 600;">Time</label>
+                    <input type="time" class="form-control">
+                  </div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- RIGHT COLUMN: RECIPIENT SELECTOR -->
+            <div class="recipient-selector">
+
+              <div class="selector-title">
+                <i class="ri-team-line"></i>
+                Select Recipients
+              </div>
+
+              <!-- FILTER TABS -->
+              <div class="filter-tabs">
+                <button class="filter-tab active" onclick="filterByCategory('all')">All Patients</button>
+                <button class="filter-tab" onclick="filterByCategory('regular')">Regular</button>
+                <button class="filter-tab" onclick="filterByCategory('nonregular')">Non-Regular</button>
+                <button class="filter-tab" onclick="filterByCategory('alert')">With Alerts</button>
+              </div>
+
+              <!-- RECIPIENT COUNT -->
+              <div class="recipient-count">
+                <div class="recipient-count-number" id="recipientCount">45</div>
+                <div class="recipient-count-label">Selected Recipients</div>
+              </div>
+
+              <!-- ADVANCED FILTERS -->
+              <div class="filter-section">
+                <label class="filter-label">Patient Category</label>
+                <div class="filter-options">
+                  <div class="filter-checkbox">
+                    <input type="checkbox" id="regular" checked onchange="updateRecipientCount()">
+                    <label for="regular">Regular Patients (45)</label>
+                  </div>
+                  <div class="filter-checkbox">
+                    <input type="checkbox" id="nonregular" onchange="updateRecipientCount()">
+                    <label for="nonregular">Non-Regular Patients (15)</label>
+                  </div>
+                  <div class="filter-checkbox">
+                    <input type="checkbox" id="newpatients" onchange="updateRecipientCount()">
+                    <label for="newpatients">New Patients (8)</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="filter-section">
+                <label class="filter-label">Health Status</label>
+                <div class="filter-options">
+                  <div class="filter-checkbox">
+                    <input type="checkbox" id="health-good" checked onchange="updateRecipientCount()">
+                    <label for="health-good">Good (28)</label>
+                  </div>
+                  <div class="filter-checkbox">
+                    <input type="checkbox" id="health-warning" checked onchange="updateRecipientCount()">
+                    <label for="health-warning">Warning (12)</label>
+                  </div>
+                  <div class="filter-checkbox">
+                    <input type="checkbox" id="health-critical" onchange="updateRecipientCount()">
+                    <label for="health-critical">Critical (7)</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="filter-section">
+                <label class="filter-label">Diabetes Type</label>
+                <div class="filter-options">
+                  <div class="filter-checkbox">
+                    <input type="checkbox" id="type1" checked onchange="updateRecipientCount()">
+                    <label for="type1">Type 1 (12)</label>
+                  </div>
+                  <div class="filter-checkbox">
+                    <input type="checkbox" id="type2" checked onchange="updateRecipientCount()">
+                    <label for="type2">Type 2 (32)</label>
+                  </div>
+                  <div class="filter-checkbox">
+                    <input type="checkbox" id="gestational" checked onchange="updateRecipientCount()">
+                    <label for="gestational">Gestational (3)</label>
+                  </div>
+                </div>
+              </div>
+
+              <!-- RECIPIENT LIST PREVIEW -->
+              <label class="filter-label">Preview Recipients</label>
+              <div class="recipient-list">
+                <div class="recipient-item">
+                  <div class="recipient-avatar">RK</div>
+                  <div class="recipient-info">
+                    <div class="recipient-name">Raj Singh</div>
+                    <div class="recipient-category">Regular • Type 2 • Good</div>
+                  </div>
+                </div>
+                <div class="recipient-item">
+                  <div class="recipient-avatar" style="background-color: #17a2b8;">KK</div>
+                  <div class="recipient-info">
+                    <div class="recipient-name">Kavita Kumari</div>
+                    <div class="recipient-category">Regular • Gestational • Good</div>
+                  </div>
+                </div>
+                <div class="recipient-item">
+                  <div class="recipient-avatar" style="background-color: #28a745;">SY</div>
+                  <div class="recipient-info">
+                    <div class="recipient-name">Santosh Yadav</div>
+                    <div class="recipient-category">Regular • Type 1 • Warning</div>
+                  </div>
+                </div>
+                <div class="recipient-item">
+                  <div class="recipient-avatar" style="background-color: #ff9800;">KR</div>
+                  <div class="recipient-info">
+                    <div class="recipient-name">Kundan Raj</div>
+                    <div class="recipient-category">Regular • Type 2 • Good</div>
+                  </div>
+                </div>
+                <div class="recipient-item">
+                  <div class="recipient-avatar" style="background-color: #9c27b0;">DD</div>
+                  <div class="recipient-info">
+                    <div class="recipient-name">Durga Devi</div>
+                    <div class="recipient-category">Regular • Type 2 • Warning</div>
+                  </div>
+                </div>
+                <p style="text-align: center; font-size: 12px; color: #999; padding: 10px; margin: 0; border-top: 1px solid #f0f0f0;">
+                  + 42 more recipients
+                </p>
+              </div>
+
+              <!-- SEND BUTTON -->
+              <div class="messaging-actions" style="margin-top: 20px;">
+                <button class="btn btn-primary flex-grow-1" onclick="sendMessage()">
+                  <i class="ri-send-plane-line me-2"></i>Send Message
+                </button>
+                <button class="btn btn-outline-secondary" onclick="saveDraft()">
+                  <i class="ri-draft-line me-2"></i>Draft
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- MESSAGE HISTORY SECTION -->
+          <div class="message-history" style="margin-top: 30px;">
+
+            <div class="history-title">
+              <i class="ri-history-line"></i>
+              Recent Messages
+            </div>
+
+            <!-- MESSAGE LOG 1 -->
+            <div class="message-log-item">
+              <div class="log-avatar">🔔</div>
+              <div class="log-content">
+                <div class="log-header">
+                  <div>
+                    <span class="log-type">Appointment Reminder</span>
+                    <span class="log-status status-delivered">Delivered (47)</span>
+                  </div>
+                  <div class="log-time">Today at 2:00 PM</div>
+                </div>
+                <div class="log-message">
+                  "📅 Reminder: Your appointment with Dr. Mitchell is on 20/06/2024 at 2:00 PM. Reply OK to confirm."
                 </div>
               </div>
             </div>
 
-            <!-- TAB 3: SCHEDULED MESSAGES -->
-            <div class="tab-pane" id="scheduled">
-              <div class="alert-info-box">
-                <i class="ri-information-line me-2"></i>
-                View and manage all messages scheduled to be sent at future dates and times.
-              </div>
-
-              <div id="scheduledMessagesList">
-                <div class="message-card">
-                  <div class="message-header">
-                    <div>
-                      <h5 class="message-title">Evening Medication Reminder - Tomorrow</h5>
-                      <small class="text-muted">Message ID: MSG-SCHEDULED-001</small>
-                    </div>
-                    <div>
-                      <span class="status-badge status-scheduled">Scheduled</span>
-                    </div>
+            <!-- MESSAGE LOG 2 -->
+            <div class="message-log-item">
+              <div class="log-avatar" style="background-color: #28a745;">⚠️</div>
+              <div class="log-content">
+                <div class="log-header">
+                  <div>
+                    <span class="log-type">Health Alert</span>
+                    <span class="log-status status-read">Read (5)</span>
                   </div>
-
-                  <div class="message-meta">
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Scheduled For</span>
-                      <span class="message-meta-value">20 Jan 2024, 6:00 PM</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Time Until Send</span>
-                      <span class="message-meta-value">15 hours 45 minutes</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Recipients</span>
-                      <span class="message-meta-value">156 Regular Patients</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Message Type</span>
-                      <span class="message-type-badge text">Text</span>
-                    </div>
-                  </div>
-
-                  <div class="message-content">
-                    <div class="message-preview">
-                      🕐 <strong>Evening Medication Reminder</strong><br><br>
-                      Hello! It's time for your evening medication dose. Please take your prescribed diabetes medication as instructed. Stay healthy! 💊
-                    </div>
-                  </div>
-
-                  <div class="action-buttons">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">
-                      <i class="ri-eye-line me-1"></i>View Details
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-warning">
-                      <i class="ri-edit-line me-1"></i>Edit
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-success">
-                      <i class="ri-send-plane-line me-1"></i>Send Now
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-danger">
-                      <i class="ri-close-line me-1"></i>Cancel
-                    </a>
-                  </div>
+                  <div class="log-time">Yesterday at 10:30 AM</div>
                 </div>
-
-                <div class="message-card">
-                  <div class="message-header">
-                    <div>
-                      <h5 class="message-title">Weekly Health Tips - Friday Morning</h5>
-                      <small class="text-muted">Message ID: MSG-SCHEDULED-002</small>
-                    </div>
-                    <div>
-                      <span class="status-badge status-scheduled">Scheduled</span>
-                    </div>
-                  </div>
-
-                  <div class="message-meta">
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Scheduled For</span>
-                      <span class="message-meta-value">26 Jan 2024, 9:00 AM</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Time Until Send</span>
-                      <span class="message-meta-value">5 days 17 hours</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Recipients</span>
-                      <span class="message-meta-value">245 All Patients</span>
-                    </div>
-                    <div class="message-meta-item">
-                      <span class="message-meta-label">Message Type</span>
-                      <span class="message-type-badge image">Image + Text</span>
-                    </div>
-                  </div>
-
-                  <div class="message-content">
-                    <div class="message-preview">
-                      💡 <strong>Weekly Health Tip</strong><br><br>
-                      Remember to stay active! Even 30 minutes of light exercise daily can significantly improve your diabetes management. [Image attached]
-                    </div>
-                  </div>
-
-                  <div class="action-buttons">
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-primary">
-                      <i class="ri-eye-line me-1"></i>View Details
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-warning">
-                      <i class="ri-edit-line me-1"></i>Edit
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-success">
-                      <i class="ri-send-plane-line me-1"></i>Send Now
-                    </a>
-                    <a href="javascript:void(0);" class="btn btn-sm btn-outline-danger">
-                      <i class="ri-close-line me-1"></i>Cancel
-                    </a>
-                  </div>
+                <div class="log-message">
+                  "⚠️ Alert: Critical HbA1c level detected (8.7%). Please schedule immediate consultation with your doctor."
                 </div>
               </div>
             </div>
-          </div>
-          <!-- App body ends -->
 
-          <!-- App footer starts -->
-          <div class="app-footer bg-white">
-            <span>© Shankar Diabetes CRM 2024. All rights reserved.</span>
-          </div>
-          <!-- App footer ends -->
-        </div>
-        <!-- App container ends -->
-      </div>
-      <!-- Main container ends -->
-    </div>
-    <!-- Page wrapper ends -->
-
-    <!-- Send Message Modal -->
-    <div class="modal fade" id="sendMessageModal" tabindex="-1">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">
-              <i class="ri-whatsapp-line me-2"></i>Send New WhatsApp Message
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <form id="sendMessageForm">
-              <div class="mb-3">
-                <label class="form-label">Message Type <span class="text-danger">*</span></label>
-                <select class="form-select" id="msgType" required>
-                  <option value="">Select Type</option>
-                  <option value="text">Text Message</option>
-                  <option value="template">Use Template</option>
-                  <option value="image">Image + Text</option>
-                  <option value="video">Video Message</option>
-                  <option value="document">Document</option>
-                </select>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Send To <span class="text-danger">*</span></label>
-                <select class="form-select" id="sendTo" required>
-                  <option value="">Select Recipients</option>
-                  <option value="regular">All Regular Patients</option>
-                  <option value="non-regular">All Non-Regular Patients</option>
-                  <option value="type1">Type 1 Diabetes Patients</option>
-                  <option value="type2">Type 2 Diabetes Patients</option>
-                  <option value="individual">Individual Patient</option>
-                </select>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Message Content <span class="text-danger">*</span></label>
-                <textarea class="form-control" id="msgContent" rows="4" placeholder="Write your message..." required></textarea>
-                <small class="text-muted">Use {{PATIENT_NAME}}, {{DOCTOR_NAME}} for placeholders</small>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Send When?</label>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="sendWhen" id="sendNow" value="now" checked>
-                  <label class="form-check-label" for="sendNow">
-                    Send Now
-                  </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="sendWhen" id="sendLater" value="later">
-                  <label class="form-check-label" for="sendLater">
-                    Schedule for Later
-                  </label>
-                </div>
-              </div>
-
-              <div id="scheduleFields" style="display: none;">
-                <div class="row">
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label">Date</label>
-                    <input type="date" class="form-control" id="scheduleDate">
+            <!-- MESSAGE LOG 3 -->
+            <div class="message-log-item">
+              <div class="log-avatar" style="background-color: #ff9800;">💊</div>
+              <div class="log-content">
+                <div class="log-header">
+                  <div>
+                    <span class="log-type">Medication Reminder</span>
+                    <span class="log-status status-read">Read (43)</span>
                   </div>
-                  <div class="col-md-6 mb-3">
-                    <label class="form-label">Time</label>
-                    <input type="time" class="form-control" id="scheduleTime">
-                  </div>
+                  <div class="log-time">2 days ago at 8:00 AM</div>
+                </div>
+                <div class="log-message">
+                  "💊 Time to take your medication! Don't miss your Metformin at 8:00 AM. Stay consistent! 💪"
                 </div>
               </div>
-            </form>
+            </div>
+
+            <!-- MESSAGE LOG 4 -->
+            <div class="message-log-item">
+              <div class="log-avatar" style="background-color: #17a2b8;">📚</div>
+              <div class="log-content">
+                <div class="log-header">
+                  <div>
+                    <span class="log-type">Education</span>
+                    <span class="log-status status-read">Read (32)</span>
+                  </div>
+                  <div class="log-time">5 days ago at 6:00 PM</div>
+                </div>
+                <div class="log-message">
+                  "📚 Did you know? Proper diet can reduce HbA1c by up to 2%. Take our quiz to earn points: https://..."
+                </div>
+              </div>
+            </div>
+
+            <!-- MESSAGE LOG 5 -->
+            <div class="message-log-item">
+              <div class="log-avatar" style="background-color: #dc3545;">❌</div>
+              <div class="log-content">
+                <div class="log-header">
+                  <div>
+                    <span class="log-type">Check-up Reminder</span>
+                    <span class="log-status status-failed">Failed (2)</span>
+                  </div>
+                  <div class="log-time">1 week ago at 9:00 AM</div>
+                </div>
+                <div class="log-message">
+                  "Hi Santosh! It's time for your monthly diabetes check-up. Book your appointment now..."
+                </div>
+              </div>
+            </div>
+
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary" id="sendBtn">
-              <i class="ri-send-plane-line me-2"></i>Send Message
-            </button>
-          </div>
+
         </div>
-      </div>
-    </div>
+        <!-- App body ends -->
 
-    <!-- Create Template Modal -->
-    <div class="modal fade" id="createTemplateModal" tabindex="-1">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">
-              <i class="ri-layout-grid-line me-2"></i>Create New Message Template
-            </h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-          </div>
-          <div class="modal-body">
-            <form id="createTemplateForm">
-              <div class="mb-3">
-                <label class="form-label">Template Name <span class="text-danger">*</span></label>
-                <input type="text" class="form-control" placeholder="e.g., Morning Medication Reminder" required>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Template Description</label>
-                <input type="text" class="form-control" placeholder="Brief description of when to use this template">
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Message Content <span class="text-danger">*</span></label>
-                <textarea class="form-control" rows="5" placeholder="Write your template message..." required></textarea>
-                <small class="text-muted">You can use {{PATIENT_NAME}}, {{DOCTOR_NAME}}, {{APPOINTMENT_DATE}}, {{TEST_RESULT}} etc.</small>
-              </div>
-
-              <div class="mb-3">
-                <label class="form-label">Category</label>
-                <select class="form-select">
-                  <option value="">Select Category</option>
-                  <option value="reminder">Medication Reminder</option>
-                  <option value="appointment">Appointment</option>
-                  <option value="health-tip">Health Tip</option>
-                  <option value="report">Lab Report</option>
-                  <option value="follow-up">Follow-up</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-primary">
-              <i class="ri-save-line me-2"></i>Save Template
-            </button>
-          </div>
+        <!-- App footer starts -->
+        <div class="app-footer bg-white">
+          <span>© Shanker Diabetes CRM 2024</span>
         </div>
+        <!-- App footer ends -->
       </div>
+      <!-- App container ends -->
+
     </div>
+    <!-- Main container ends -->
 
-    <!-- Required jQuery first, then Bootstrap Bundle JS -->
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/js/moment.min.js"></script>
+  </div>
+  <!-- Page wrapper ends -->
 
-    <!-- Overlay Scroll JS -->
-    <script src="assets/vendor/overlay-scroll/jquery.overlayScrollbars.min.js"></script>
-    <script src="assets/vendor/overlay-scroll/custom-scrollbar.js"></script>
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/moment.min.js"></script>
 
-    <!-- Custom JS files -->
-    <script src="assets/js/custom.js"></script>
+  <!-- Overlay Scroll JS -->
+  <script src="assets/vendor/overlay-scroll/jquery.overlayScrollbars.min.js"></script>
+  <script src="assets/vendor/overlay-scroll/custom-scrollbar.js"></script>
 
-    <!-- WhatsApp Messaging Script -->
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        // Tab Navigation
-        const navLinks = document.querySelectorAll('.nav-tabs-custom .nav-link');
-        const tabPanes = document.querySelectorAll('.tab-pane');
+  <!-- Custom JS files -->
+  <script src="assets/js/custom.js"></script>
 
-        navLinks.forEach(link => {
-          link.addEventListener('click', function() {
-            const tabId = this.getAttribute('data-tab');
-            
-            // Remove active class from all
-            navLinks.forEach(l => l.classList.remove('active'));
-            tabPanes.forEach(pane => pane.classList.remove('active'));
-            
-            // Add active class to clicked
-            this.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
-          });
-        });
+  <script>
+    const templates = [
+      {
+        name: 'Check-up Reminder',
+        text: 'Hi {patient_name}! 👋 It\'s time for your monthly diabetes check-up. Book your appointment now using the link below. Stay healthy! 💪 https://app.shankardiabetes.com/book-appointment?patient_id={patient_id}'
+      },
+      {
+        name: 'Health Alert',
+        text: '⚠️ Alert: Your recent HbA1c level ({hba1c}%) is higher than target. Please contact {doctor} immediately. Call: 0987654321 or click: https://app.shankardiabetes.com/message-doctor'
+      },
+      {
+        name: 'Medication Reminder',
+        text: '💊 Medication Reminder: Don\'t forget to take your {medication} at {time} today. Stay consistent with your treatment! 💪'
+      },
+      {
+        name: 'Education Content',
+        text: '📚 Did you know? {education_fact}. Learn more by taking our diabetes education quiz and earn points: {link}'
+      },
+      {
+        name: 'Appointment Reminder',
+        text: '📅 Reminder: Your appointment with {doctor} is on {date} at {time}. Reply OK to confirm. {video_link}'
+      },
+      {
+        name: 'Test Results',
+        text: '📋 Your lab results are ready! View them in the app: {report_link}. Your next scheduled consultation is on {date}.'
+      }
+    ];
 
-        // Schedule Message Toggle
-        const sendNow = document.getElementById('sendNow');
-        const sendLater = document.getElementById('sendLater');
-        const scheduleFields = document.getElementById('scheduleFields');
+    function switchTab(e, tab) {
+      e.preventDefault();
+      
+      // Update tabs
+      document.querySelectorAll('.compose-tab').forEach(t => t.classList.remove('active'));
+      e.target.closest('.compose-tab').classList.add('active');
+      
+      // Update content
+      document.querySelectorAll('.compose-content').forEach(c => c.classList.remove('active'));
+      document.getElementById(tab).classList.add('active');
+    }
 
-        sendNow.addEventListener('change', () => {
-          scheduleFields.style.display = 'none';
-        });
+    function loadTemplate(index) {
+      const template = templates[index];
+      document.getElementById('messageText').value = template.text;
+      
+      // Switch to custom tab
+      document.querySelector('[onclick*="custom"]').click();
+      updatePreview();
+      updateCharCount();
+    }
 
-        sendLater.addEventListener('change', () => {
-          scheduleFields.style.display = 'block';
-        });
+    function insertEmoji(emoji) {
+      const textarea = document.getElementById('messageText');
+      textarea.value += emoji;
+      updatePreview();
+      updateCharCount();
+    }
 
-        // Send Message Button
-        const sendBtn = document.getElementById('sendBtn');
-        sendBtn.addEventListener('click', function() {
-          const form = document.getElementById('sendMessageForm');
-          if (form.checkValidity()) {
-            alert('Message sent successfully!');
-            const modal = bootstrap.Modal.getInstance(document.getElementById('sendMessageModal'));
-            modal.hide();
-            form.reset();
-          }
-        });
+    function updatePreview() {
+      const text = document.getElementById('messageText').value || 'Message preview will appear here...';
+      document.getElementById('previewText').textContent = text;
+    }
 
-        // Filter functionality
-        document.getElementById('filterMessageType').addEventListener('change', filterMessages);
-        document.getElementById('filterStatus').addEventListener('change', filterMessages);
-        document.getElementById('filterRecipient').addEventListener('change', filterMessages);
-        document.getElementById('filterDate').addEventListener('change', filterMessages);
+    function updateCharCount() {
+      const text = document.getElementById('messageText').value;
+      document.getElementById('charCount').textContent = text.length;
+    }
 
-        function filterMessages() {
-          console.log('Filtering messages...');
-          // Implementation would filter actual message data
-        }
+    function toggleScheduling() {
+      const timing = document.querySelector('input[name="timing"]:checked').value;
+      document.getElementById('scheduledDateTime').classList.toggle('show', timing === 'scheduled');
+      document.getElementById('recurringSchedule').classList.toggle('show', timing === 'recurring');
+    }
 
-        // Action button handlers
-        document.querySelectorAll('.btn-outline-primary').forEach(btn => {
-          btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('View details - would show detailed analytics');
-          });
-        });
+    function filterByCategory(category) {
+      // Update active filter tab
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+      
+      // Update checkboxes based on category
+      if (category === 'all') {
+        document.getElementById('regular').checked = true;
+        document.getElementById('nonregular').checked = true;
+        document.getElementById('newpatients').checked = false;
+      } else if (category === 'regular') {
+        document.getElementById('regular').checked = true;
+        document.getElementById('nonregular').checked = false;
+        document.getElementById('newpatients').checked = false;
+      } else if (category === 'nonregular') {
+        document.getElementById('regular').checked = false;
+        document.getElementById('nonregular').checked = true;
+        document.getElementById('newpatients').checked = false;
+      } else if (category === 'alert') {
+        document.getElementById('health-critical').checked = true;
+        document.getElementById('health-warning').checked = true;
+        document.getElementById('health-good').checked = false;
+      }
+      
+      updateRecipientCount();
+    }
 
-        document.querySelectorAll('.btn-outline-info').forEach(btn => {
-          btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            alert('Action triggered');
-          });
-        });
+    function updateRecipientCount() {
+      let count = 0;
+      
+      if (document.getElementById('regular').checked) count += 45;
+      if (document.getElementById('nonregular').checked) count += 15;
+      if (document.getElementById('newpatients').checked) count += 8;
+      
+      // Adjust for overlaps
+      if (count > 68) count = 68;
+      if (count === 0) count = 0;
+      else if (!document.getElementById('regular').checked && !document.getElementById('nonregular').checked) count = 0;
+      else count = Math.max(count, 47);
+      
+      document.getElementById('recipientCount').textContent = count;
+    }
 
-        document.querySelectorAll('.btn-outline-danger').forEach(btn => {
-          btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            if (confirm('Are you sure?')) {
-              alert('Action completed');
-            }
-          });
-        });
-      });
-    </script>
-  </body>
+    function sendMessage() {
+      const messageText = document.getElementById('messageText').value;
+      const recipientCount = document.getElementById('recipientCount').textContent;
+      
+      if (!messageText.trim()) {
+        alert('Please enter a message');
+        return;
+      }
+      
+      if (recipientCount === '0') {
+        alert('Please select at least one recipient');
+        return;
+      }
+      
+      alert(`Message sent to ${recipientCount} recipients!\n\nMessage:\n"${messageText.substring(0, 50)}..."`);
+      
+      // Reset form
+      document.getElementById('messageText').value = '';
+      updatePreview();
+      updateCharCount();
+    }
+
+    function saveDraft() {
+      const messageText = document.getElementById('messageText').value;
+      
+      if (!messageText.trim()) {
+        alert('Please enter a message');
+        return;
+      }
+      
+      alert('Message saved as draft!');
+    }
+
+    // Initialize
+    updatePreview();
+  </script>
+
+</body>
+
 </html>

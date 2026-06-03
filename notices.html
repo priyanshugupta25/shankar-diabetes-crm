@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shanker Diabetes CRM | Notices & Announcements</title>
+
+  <!-- Meta -->
+  <meta name="description" content="Shanker Diabetes CRM - Notices & Announcements">
+  <meta property="og:title" content="Shanker Diabetes CRM">
+  <meta property="og:description" content="Shanker Diabetes CRM">
+  <meta property="og:type" content="Website">
+  <link rel="shortcut icon" href="assets/images/favicon.svg">
+
+  <link rel="stylesheet" href="assets/fonts/remix/remixicon.css">
+  <link rel="stylesheet" href="assets/css/main.min.css">
+  <link rel="stylesheet" href="assets/vendor/overlay-scroll/OverlayScrollbars.min.css">
+
+  <style>
+    .notices-composer {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .composer-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2E75B6;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .composer-title i {
+      font-size: 20px;
+    }
+
+    .form-section {
+      margin-bottom: 20px;
+    }
+
+    .form-section-title {
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: block;
+      border-bottom: 2px solid #f0f0f0;
+      padding-bottom: 8px;
+    }
+
+    .notice-type-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 15px;
+    }
+
+    .notice-type-btn {
+      padding: 12px;
+      border: 2px solid #ddd;
+      border-radius: 8px;
+      background: white;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .notice-type-btn i {
+      font-size: 20px;
+    }
+
+    .notice-type-btn:hover {
+      border-color: #667eea;
+      color: #667eea;
+    }
+
+    .notice-type-btn.active {
+      background-color: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: inherit;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .form-row .form-group {
+      margin-bottom: 0;
+    }
+
+    .priority-selector {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .priority-btn {
+      flex: 1;
+      padding: 8px;
+      border: 2px solid #ddd;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+      font-size: 11px;
+      font-weight: 600;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .priority-btn:hover {
+      border-color: #667eea;
+    }
+
+    .priority-btn.active {
+      color: white;
+      border-color: white;
+    }
+
+    .priority-btn.low.active {
+      background-color: #28a745;
+    }
+
+    .priority-btn.medium.active {
+      background-color: #ffc107;
+      color: #333;
+    }
+
+    .priority-btn.high.active {
+      background-color: #dc3545;
+    }
+
+    .priority-btn.urgent.active {
+      background-color: #6f42c1;
+    }
+
+    .color-picker-group {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .color-picker {
+      width: 40px;
+      height: 40px;
+      border-radius: 6px;
+      border: 3px solid transparent;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .color-picker:hover {
+      transform: scale(1.1);
+    }
+
+    .color-picker.active {
+      border-color: #333;
+      box-shadow: 0 0 0 2px white, 0 0 0 4px #333;
+    }
+
+    .color-1 { background-color: #667eea; }
+    .color-2 { background-color: #28a745; }
+    .color-3 { background-color: #ffc107; }
+    .color-4 { background-color: #dc3545; }
+    .color-5 { background-color: #17a2b8; }
+
+    .notice-preview {
+      background-color: #f9f9f9;
+      border-radius: 10px;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-left: 4px solid #667eea;
+    }
+
+    .preview-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+
+    .preview-icon {
+      width: 40px;
+      height: 40px;
+      background-color: #667eea;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .preview-info {
+      flex: 1;
+    }
+
+    .preview-title {
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 4px;
+    }
+
+    .preview-subtitle {
+      font-size: 11px;
+      color: #999;
+    }
+
+    .preview-content {
+      background: white;
+      padding: 12px;
+      border-radius: 8px;
+      color: #333;
+      font-size: 13px;
+      line-height: 1.6;
+      margin-bottom: 10px;
+    }
+
+    .preview-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      background-color: #667eea;
+      color: white;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-right: 6px;
+      margin-bottom: 6px;
+    }
+
+    .notices-selector {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .selector-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2E75B6;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .filter-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filter-tab {
+      padding: 8px 15px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      background: white;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    .filter-tab.active {
+      background-color: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .filter-section {
+      margin-bottom: 20px;
+    }
+
+    .filter-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 8px;
+      display: block;
+      text-transform: uppercase;
+    }
+
+    .filter-options {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .filter-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      padding: 6px;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+    }
+
+    .filter-checkbox:hover {
+      background-color: #f5f5f5;
+    }
+
+    .filter-checkbox input {
+      cursor: pointer;
+    }
+
+    .filter-checkbox label {
+      cursor: pointer;
+      margin: 0;
+      font-size: 13px;
+    }
+
+    .recipient-count {
+      background-color: #f0f0f0;
+      padding: 12px;
+      border-radius: 6px;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .recipient-count-number {
+      font-size: 24px;
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    .recipient-count-label {
+      font-size: 12px;
+      color: #999;
+      margin-top: 4px;
+    }
+
+    .scheduling-section {
+      background-color: #f9f9f9;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+
+    .scheduling-option {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .scheduling-option:last-child {
+      margin-bottom: 0;
+    }
+
+    .scheduling-option input {
+      cursor: pointer;
+    }
+
+    .scheduling-option label {
+      cursor: pointer;
+      margin: 0;
+      font-size: 13px;
+    }
+
+    .scheduling-datetime {
+      margin-top: 10px;
+      display: none;
+      padding: 10px;
+      background: white;
+      border-radius: 6px;
+    }
+
+    .scheduling-datetime.show {
+      display: block;
+    }
+
+    .scheduling-datetime .form-group {
+      margin-bottom: 10px;
+    }
+
+    .notices-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .notices-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .stat-mini {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+    }
+
+    .stat-mini-number {
+      font-size: 24px;
+      font-weight: bold;
+      color: #667eea;
+    }
+
+    .stat-mini-label {
+      font-size: 11px;
+      color: #999;
+      margin-top: 5px;
+      text-transform: uppercase;
+    }
+
+    .alert-box {
+      display: flex;
+      gap: 12px;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      align-items: flex-start;
+    }
+
+    .alert-box.info {
+      background-color: #e7f3ff;
+      border-left: 4px solid #2196F3;
+    }
+
+    .alert-box.success {
+      background-color: #e8f5e9;
+      border-left: 4px solid #4caf50;
+    }
+
+    .alert-box i {
+      font-size: 18px;
+      flex-shrink: 0;
+      margin-top: 2px;
+      color: #2196F3;
+    }
+
+    .alert-box.success i {
+      color: #4caf50;
+    }
+
+    .alert-box p {
+      margin: 0;
+      font-size: 13px;
+    }
+
+    .notices-history {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+    }
+
+    .history-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: #2E75B6;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .notice-log-item {
+      display: flex;
+      gap: 15px;
+      padding: 15px;
+      border-bottom: 1px solid #f0f0f0;
+      transition: background-color 0.2s ease;
+    }
+
+    .notice-log-item:hover {
+      background-color: #f9f9f9;
+    }
+
+    .notice-log-item:last-child {
+      border-bottom: none;
+    }
+
+    .log-avatar {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      background-color: #667eea;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+
+    .log-avatar.success {
+      background-color: #28a745;
+    }
+
+    .log-avatar.warning {
+      background-color: #ffc107;
+      color: #333;
+    }
+
+    .log-avatar.danger {
+      background-color: #dc3545;
+    }
+
+    .log-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .log-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      margin-bottom: 8px;
+    }
+
+    .log-title {
+      font-weight: 600;
+      color: #333;
+    }
+
+    .log-time {
+      font-size: 11px;
+      color: #999;
+    }
+
+    .log-details {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .log-detail-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .log-detail-item i {
+      color: #999;
+    }
+
+    .log-status {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .status-published {
+      background-color: #d4edda;
+      color: #155724;
+    }
+
+    .status-scheduled {
+      background-color: #d1ecf1;
+      color: #0c5460;
+    }
+
+    .status-draft {
+      background-color: #e2e3e5;
+      color: #383d41;
+    }
+
+    .log-engagement {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+      padding-top: 8px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .engagement-stat {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      color: #666;
+    }
+
+    .engagement-stat i {
+      color: #667eea;
+    }
+
+    .pagination {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-top: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #f0f0f0;
+    }
+
+    .pagination button,
+    .pagination span {
+      padding: 6px 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: white;
+      cursor: pointer;
+      font-size: 12px;
+      transition: all 0.3s ease;
+    }
+
+    .pagination button:hover {
+      border-color: #667eea;
+      color: #667eea;
+    }
+
+    .pagination .active {
+      background-color: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .character-count {
+      font-size: 11px;
+      color: #999;
+      margin-top: 5px;
+      text-align: right;
+    }
+
+    .template-btn {
+      display: inline-block;
+      padding: 8px 12px;
+      background-color: #f0f0f0;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      margin-right: 6px;
+      margin-bottom: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .template-btn:hover {
+      background-color: #667eea;
+      color: white;
+      border-color: #667eea;
+    }
+
+    .image-upload-area {
+      border: 2px dashed #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background-color: #f9f9f9;
+      margin-bottom: 12px;
+    }
+
+    .image-upload-area:hover {
+      border-color: #667eea;
+      background-color: #f0f7ff;
+    }
+
+    .image-upload-area i {
+      font-size: 32px;
+      color: #667eea;
+      margin-bottom: 8px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Page wrapper starts -->
+  <div class="page-wrapper">
+
+    <!-- App header starts -->
+    <div class="app-header d-flex align-items-center">
+
+      <!-- Toggle buttons starts -->
+      <div class="d-flex">
+        <button class="toggle-sidebar">
+          <i class="ri-menu-line"></i>
+        </button>
+        <button class="pin-sidebar">
+          <i class="ri-menu-line"></i>
+        </button>
+      </div>
+      <!-- Toggle buttons ends -->
+
+      <!-- App brand starts -->
+      <div class="app-brand ms-3">
+        <a href="index.html" class="d-lg-block d-none">
+          <img src="assets/images/logo.svg" class="logo" alt="Shanker Diabetes CRM">
+        </a>
+        <a href="index.html" class="d-lg-none d-md-block">
+          <img src="assets/images/logo-sm.svg" class="logo" alt="Shanker Diabetes CRM">
+        </a>
+      </div>
+      <!-- App brand ends -->
+
+      <!-- App header actions starts -->
+      <div class="header-actions">
+
+        <!-- Header user settings starts -->
+        <div class="dropdown ms-2">
+          <a id="userSettings" class="dropdown-toggle d-flex align-items-center" href="#!" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="avatar-box">AS<span class="status busy"></span></div>
+          </a>
+          <div class="dropdown-menu dropdown-menu-end shadow-lg">
+            <div class="px-3 py-2">
+              <span class="small">Admin</span>
+              <h6 class="m-0">Anand Shankar</h6>
+            </div>
+            <div class="mx-3 my-2 d-grid">
+              <a href="login.html" class="btn btn-danger">Logout</a>
+            </div>
+          </div>
+        </div>
+        <!-- Header user settings ends -->
+
+      </div>
+      <!-- App header actions ends -->
+
+    </div>
+    <!-- App header ends -->
+
+    <!-- Main container starts -->
+    <div class="main-container">
+
+      <!-- Sidebar wrapper starts -->
+       <nav id="sidebar" class="sidebar-wrapper">
+          <!-- Sidebar profile starts -->
+          <div class="sidebar-profile">
+            <div class="m-0">
+              <h5 class="mb-1 profile-name text-nowrap text-truncate">
+                Dr. Anand Shankar
+              </h5>
+              <p class="m-0 small profile-name text-nowrap text-truncate">
+                Administrator
+              </p>
+            </div>
+          </div>
+          <!-- Sidebar profile ends -->
+
+          <!-- Sidebar menu starts -->
+          <div class="sidebarMenuScroll">
+            <ul class="sidebar-menu">
+              <li>
+                <a href="index.html">
+                  <i class="ri-home-6-line"></i>
+                  <span class="menu-text">Dashboard</span>
+                </a>
+              </li>
+              <li class="treeview">
+                <a href="#!">
+                  <i class="ri-heart-pulse-line"></i>
+                  <span class="menu-text">Patients</span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a href="patient-dashboard.html">Patient Dashboard</a>
+                  </li>
+                  <li>
+                    <a href="patients-list.html">Patients List</a>
+                  </li>
+                  <li>
+                    <a href="add-patient.html">Add Patient</a>
+                  </li>
+                  <li>
+                    <a href="edit-patient.html">Edit Patient</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="treeview">
+                <a href="#!">
+                  <i class="ri-calendar-todo-line"></i>
+                  <span class="menu-text">Appointments</span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a href="appointments.html">Appointments</a>
+                  </li>
+                  <li>
+                    <a href="appointments-list.html">Appointments List</a>
+                  </li>
+                  <li>
+                    <a href="book-appointment.html">Book Appointment</a>
+                  </li>
+                  <li>
+                    <a href="edit-appointment.html">Edit Appointment</a>
+                  </li>
+                </ul>
+              </li>
+              <li class="treeview">
+                <a href="#!">
+                  <i class="ri-file-text-line"></i>
+                  <span class="menu-text">Reports</span>
+                </a>
+                <ul class="treeview-menu">
+                  <li>
+                    <a href="reports.html">Reports</a>
+                  </li>
+                  <li>
+                    <a href="upload-report.html">Upload Report</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="messaging.html">
+                  <i class="ri-message-3-line"></i>
+                  <span class="menu-text">WhatsApp Messages</span>
+                </a>
+              </li>
+              <li>
+                <a href="quiz.html">
+                  <i class="ri-game-line"></i>
+                  <span class="menu-text">Quiz Management</span>
+                </a>
+              </li>
+              <li>
+                <a href="video-consultation.html">
+                  <i class="ri-video-line"></i>
+                  <span class="menu-text">Video Consultations</span>
+                </a>
+              </li>
+              <li class="active current-page">
+                <a href="notices.html">
+                  <i class="ri-notification-line"></i>
+                  <span class="menu-text">Notices & Announcements</span>
+                </a>
+              </li>
+              <li>
+                <a href="blog.html">
+                  <i class="ri-article-line"></i>
+                  <span class="menu-text">Blog Management</span>
+                </a>
+              </li>
+              <li>
+                <a href="settings.html">
+                  <i class="ri-settings-5-line"></i>
+                  <span class="menu-text">Settings</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+          <!-- Sidebar menu ends -->
+
+          <!-- Sidebar contact starts -->
+          <div class="sidebar-contact">
+            <p class="fw-light mb-1 text-nowrap text-truncate">
+              Emergency Contact
+            </p>
+            <h5 class="m-0 lh-1 text-nowrap text-truncate">+91-9876543210</h5>
+            <i class="ri-phone-line"></i>
+          </div>
+          <!-- Sidebar contact ends -->
+        </nav>
+      <!-- Sidebar wrapper ends -->
+
+      <!-- App container starts -->
+      <div class="app-container">
+
+        <!-- App hero header starts -->
+        <div class="app-hero-header d-flex align-items-center">
+
+          <!-- Breadcrumb starts -->
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+              <i class="ri-home-8-line lh-1 pe-3 me-3 border-end"></i>
+              <a href="index.html">Home</a>
+            </li>
+            <li class="breadcrumb-item text-primary" aria-current="page">
+              Notices & Announcements
+            </li>
+          </ol>
+          <!-- Breadcrumb ends -->
+        </div>
+        <!-- App Hero header ends -->
+
+        <!-- App body starts -->
+        <div class="app-body">
+
+          <!-- STATISTICS SECTION -->
+          <div class="notices-stats">
+            <div class="stat-mini">
+              <div class="stat-mini-number">47</div>
+              <div class="stat-mini-label">Total Published</div>
+            </div>
+            <div class="stat-mini">
+              <div class="stat-mini-number">8,234</div>
+              <div class="stat-mini-label">Total Views</div>
+            </div>
+            <div class="stat-mini">
+              <div class="stat-mini-number">3,421</div>
+              <div class="stat-mini-label">Total Clicks</div>
+            </div>
+            <div class="stat-mini">
+              <div class="stat-mini-number">45%</div>
+              <div class="stat-mini-label">Avg Engagement</div>
+            </div>
+          </div>
+
+          <!-- ALERT BOX -->
+          <div class="alert-box info">
+            <i class="ri-information-line"></i>
+            <p>
+              <strong>Notices & Announcements:</strong> Create and publish important notices, health tips, and announcements to patients. Schedule announcements for future dates, target specific patient segments, and track engagement metrics. All announcements are automatically sent via WhatsApp and displayed on the patient app.
+            </p>
+          </div>
+
+          <!-- MAIN NOTICES CONTAINER -->
+          
+
+            <!-- LEFT COLUMN: CREATE NOTICE -->
+            <div class="notices-composer">
+
+              <div class="composer-title">
+                <i class="ri-megaphone-line"></i>
+                Create Notice/Announcement
+              </div>
+
+              <!-- NOTICE TYPE SELECTION -->
+              <div class="form-section">
+                <label class="form-section-title">Notice Type</label>
+                <div class="notice-type-buttons">
+                  <button class="notice-type-btn active" onclick="setNoticeType(this, 'announcement')">
+                    <i class="ri-megaphone-line"></i> Announcement
+                  </button>
+                  <button class="notice-type-btn" onclick="setNoticeType(this, 'alert')">
+                    <i class="ri-alert-line"></i> Alert
+                  </button>
+                  <button class="notice-type-btn" onclick="setNoticeType(this, 'tips')">
+                    <i class="ri-lightbulb-line"></i> Health Tips
+                  </button>
+                  <button class="notice-type-btn" onclick="setNoticeType(this, 'event')">
+                    <i class="ri-calendar-event-line"></i> Event
+                  </button>
+                </div>
+              </div>
+
+              <!-- TITLE & SUBTITLE -->
+              <div class="form-section">
+                <div class="form-row">
+                  <div class="form-group">
+                    <label>Title <span style="color: #dc3545;">*</span></label>
+                    <input type="text" placeholder="e.g., Important Health Update" id="noticeTitle" onkeyup="updatePreview()">
+                  </div>
+                  <div class="form-group">
+                    <label>Priority <span style="color: #dc3545;">*</span></label>
+                    <select id="priority" onchange="updatePreview()">
+                      <option value="low">Low</option>
+                      <option value="medium" selected>Medium</option>
+                      <option value="high">High</option>
+                      <option value="urgent">Urgent</option>
+                    </select>
+                  </div>
+                </div>
+              </div>
+
+              <!-- CONTENT -->
+              <div class="form-group">
+                <label>Message Content <span style="color: #dc3545;">*</span></label>
+                <textarea id="noticeContent" placeholder="Write your notice/announcement here..." onkeyup="updatePreview(); updateCharCount();"></textarea>
+                <div class="character-count">
+                  <span id="charCount">0</span>/1000 characters
+                </div>
+              </div>
+
+              <!-- QUICK TEMPLATES -->
+              <div class="form-section">
+                <label class="form-section-title">Quick Templates</label>
+                <div style="margin-bottom: 12px;">
+                  <button class="template-btn" onclick="loadTemplate(0)">📅 Appointment Reminder</button>
+                  <button class="template-btn" onclick="loadTemplate(1)">🏥 Clinic Update</button>
+                  <button class="template-btn" onclick="loadTemplate(2)">💊 Medication Alert</button>
+                  <button class="template-btn" onclick="loadTemplate(3)">🩺 Health Checkup</button>
+                  <button class="template-btn" onclick="loadTemplate(4)">📢 Important Notice</button>
+                </div>
+              </div>
+
+              <!-- ATTACHMENT -->
+              <div class="form-section">
+                <label class="form-section-title">Add Image</label>
+                <div class="image-upload-area" onclick="document.getElementById('imageUpload').click()">
+                  <i class="ri-image-add-line"></i>
+                  <p style="margin: 8px 0 0 0; font-size: 12px; color: #666;">Click to upload image or drag & drop</p>
+                  <input type="file" id="imageUpload" accept="image/*" style="display: none;">
+                </div>
+              </div>
+
+              <!-- NOTICE PREVIEW -->
+              <div class="notice-preview">
+                <div class="preview-header">
+                  <div class="preview-icon" id="previewIcon" style="background-color: #667eea;">
+                    <i class="ri-megaphone-line"></i>
+                  </div>
+                  <div class="preview-info">
+                    <div class="preview-title" id="previewTitle">Important Health Update</div>
+                    <div class="preview-subtitle" id="previewMeta">Announcement • Medium Priority</div>
+                  </div>
+                </div>
+                <div class="preview-content" id="previewContent">
+                  Your notice content will appear here...
+                </div>
+                <div id="previewBadges"></div>
+              </div>
+
+              <!-- ACTION BUTTONS -->
+              <div class="notices-actions" style="margin-top: 20px;">
+                <button class="btn btn-primary flex-grow-1" onclick="publishNotice()">
+                  <i class="ri-send-plane-line me-2"></i>Publish Now
+                </button>
+                <button class="btn btn-outline-secondary" onclick="saveDraft()">
+                  <i class="ri-draft-line me-2"></i>Draft
+                </button>
+              </div>
+
+            </div>
+
+          
+
+          <!-- NOTICES HISTORY SECTION -->
+          <div class="notices-history" style="margin-top: 30px;">
+
+            <div class="history-title">
+              <i class="ri-history-line"></i>
+              Notices History
+            </div>
+
+            <!-- NOTICE LOG 1 -->
+            <div class="notice-log-item">
+              <div class="log-avatar success">📢</div>
+              <div class="log-content">
+                <div class="log-header">
+                  <div>
+                    <div class="log-title">Important: Clinic Timings Update</div>
+                  </div>
+                  <div class="log-time">Today at 9:30 AM</div>
+                </div>
+                <div class="log-details">
+                  <div class="log-detail-item">
+                    <i class="ri-megaphone-line"></i> Announcement
+                  </div>
+                  <div class="log-detail-item">
+                    <i class="ri-team-line"></i> 845 Patients
+                  </div>
+                  <span class="log-status status-published">Published</span>
+                </div>
+                <div class="log-engagement">
+                  <div class="engagement-stat">
+                    <i class="ri-eye-line"></i> 423 Views
+                  </div>
+                  <div class="engagement-stat">
+                    <i class="ri-links-line"></i> 156 Clicks
+                  </div>
+                  <div class="engagement-stat">
+                    <i class="ri-share-line"></i> 42 Shares
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- NOTICE LOG 2 -->
+            <div class="notice-log-item">
+              <div class="log-avatar warning">⚠️</div>
+              <div class="log-content">
+                <div class="log-header">
+                  <div>
+                    <div class="log-title">Alert: New Medication Guidelines</div>
+                  </div>
+                  <div class="log-time">Yesterday at 2:15 PM</div>
+                </div>
+                <div class="log-details">
+                  <div class="log-detail-item">
+                    <i class="ri-alert-line"></i> Alert
+                  </div>
+                  <div class="log-detail-item">
+                    <i class="ri-team-line"></i> 567 Patients (Type 2)
+                  </div>
+                  <span class="log-status status-published">Published</span>
+                </div>
+                <div class="log-engagement">
+                  <div class="engagement-stat">
+                    <i class="ri-eye-line"></i> 512 Views
+                  </div>
+                  <div class="engagement-stat">
+                    <i class="ri-links-line"></i> 234 Clicks
+                  </div>
+                  <div class="engagement-stat">
+                    <i class="ri-share-line"></i> 89 Shares
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- NOTICE LOG 3 -->
+            <div class="notice-log-item">
+              <div class="log-avatar">💡</div>
+              <div class="log-content">
+                <div class="log-header">
+                  <div>
+                    <div class="log-title">Health Tip: Stay Hydrated This Season</div>
+                  </div>
+                  <div class="log-time">3 days ago at 10:00 AM</div>
+                </div>
+                <div class="log-details">
+                  <div class="log-detail-item">
+                    <i class="ri-lightbulb-line"></i> Health Tips
+                  </div>
+                  <div class="log-detail-item">
+                    <i class="ri-team-line"></i> 845 Patients
+                  </div>
+                  <span class="log-status status-published">Published</span>
+                </div>
+                <div class="log-engagement">
+                  <div class="engagement-stat">
+                    <i class="ri-eye-line"></i> 678 Views
+                  </div>
+                  <div class="engagement-stat">
+                    <i class="ri-links-line"></i> 321 Clicks
+                  </div>
+                  <div class="engagement-stat">
+                    <i class="ri-share-line"></i> 156 Shares
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- NOTICE LOG 4 -->
+            <div class="notice-log-item">
+              <div class="log-avatar danger">🎉</div>
+              <div class="log-content">
+                <div class="log-header">
+                  <div>
+                    <div class="log-title">Upcoming: Diabetes Awareness Event - Free Health Camp</div>
+                  </div>
+                  <div class="log-time">1 week ago at 5:30 PM</div>
+                </div>
+                <div class="log-details">
+                  <div class="log-detail-item">
+                    <i class="ri-calendar-event-line"></i> Event
+                  </div>
+                  <div class="log-detail-item">
+                    <i class="ri-team-line"></i> 845 Patients
+                  </div>
+                  <span class="log-status status-published">Published</span>
+                </div>
+                <div class="log-engagement">
+                  <div class="engagement-stat">
+                    <i class="ri-eye-line"></i> 834 Views
+                  </div>
+                  <div class="engagement-stat">
+                    <i class="ri-links-line"></i> 456 Clicks
+                  </div>
+                  <div class="engagement-stat">
+                    <i class="ri-share-line"></i> 234 Shares
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- NOTICE LOG 5 -->
+            <div class="notice-log-item">
+              <div class="log-avatar">📅</div>
+              <div class="log-content">
+                <div class="log-header">
+                  <div>
+                    <div class="log-title">Scheduled: Monthly Diabetes Support Group Meeting</div>
+                  </div>
+                  <div class="log-time">2 weeks ago</div>
+                </div>
+                <div class="log-details">
+                  <div class="log-detail-item">
+                    <i class="ri-calendar-event-line"></i> Event
+                  </div>
+                  <div class="log-detail-item">
+                    <i class="ri-team-line"></i> 234 Patients
+                  </div>
+                  <span class="log-status status-scheduled">Scheduled</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- PAGINATION -->
+            <div class="pagination">
+              <button onclick="alert('Previous page')">← Previous</button>
+              <span class="active">1</span>
+              <button onclick="alert('Page 2')">2</button>
+              <button onclick="alert('Page 3')">3</button>
+              <button onclick="alert('Next page')">Next →</button>
+            </div>
+
+          </div>
+
+        </div>
+        <!-- App body ends -->
+
+        <!-- App footer starts -->
+        <div class="app-footer bg-white">
+          <span>© Shanker Diabetes CRM 2024</span>
+        </div>
+        <!-- App footer ends -->
+      </div>
+      <!-- App container ends -->
+
+    </div>
+    <!-- Main container ends -->
+
+  </div>
+  <!-- Page wrapper ends -->
+
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/moment.min.js"></script>
+
+  <!-- Overlay Scroll JS -->
+  <script src="assets/vendor/overlay-scroll/jquery.overlayScrollbars.min.js"></script>
+  <script src="assets/vendor/overlay-scroll/custom-scrollbar.js"></script>
+
+  <!-- Custom JS files -->
+  <script src="assets/js/custom.js"></script>
+
+  <script>
+    let currentNoticeType = 'announcement';
+    let selectedColor = '#667eea';
+
+    const templates = {
+      0: {
+        title: '📅 Appointment Reminder',
+        content: 'Dear patients, please remember to attend your scheduled appointment on [DATE] at [TIME]. If you need to reschedule, please contact us 24 hours in advance.'
+      },
+      1: {
+        title: '🏥 Clinic Update',
+        content: 'Our clinic will be closed on [DATE] for maintenance. We will resume normal operations on [DATE]. For emergencies, please contact our helpline: [PHONE]'
+      },
+      2: {
+        title: '💊 Medication Alert',
+        content: 'Important: A new batch of [MEDICATION] has arrived. If you are due for a refill, please visit our clinic or contact us. Please ensure you do not miss your medication.'
+      },
+      3: {
+        title: '🩺 Health Checkup',
+        content: 'It\'s time for your periodic health checkup! Regular monitoring is important for managing diabetes. Schedule your appointment today and get a complete health assessment.'
+      },
+      4: {
+        title: '📢 Important Notice',
+        content: 'Attention all patients: We are pleased to announce [ANNOUNCEMENT]. For more details, please visit our website or call us at [PHONE]. Thank you for your continued trust.'
+      }
+    };
+
+    function setNoticeType(btn, type) {
+      document.querySelectorAll('.notice-type-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentNoticeType = type;
+      updatePreview();
+    }
+
+    function loadTemplate(index) {
+      const template = templates[index];
+      document.getElementById('noticeTitle').value = template.title;
+      document.getElementById('noticeContent').value = template.content;
+      updatePreview();
+      updateCharCount();
+    }
+
+    function selectColor(btn) {
+      document.querySelectorAll('.color-picker').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      
+      const colorMap = {
+        'color-1': '#667eea',
+        'color-2': '#28a745',
+        'color-3': '#ffc107',
+        'color-4': '#dc3545',
+        'color-5': '#17a2b8'
+      };
+      
+      const classes = btn.className.split(' ');
+      selectedColor = colorMap[classes.find(c => c.includes('color-'))];
+      updatePreview();
+    }
+
+    function updatePreview() {
+      const title = document.getElementById('noticeTitle').value || 'Important Health Update';
+      const content = document.getElementById('noticeContent').value || 'Your notice content will appear here...';
+      const priority = document.getElementById('priority').value || 'medium';
+
+      const typeIcons = {
+        'announcement': 'ri-megaphone-line',
+        'alert': 'ri-alert-line',
+        'tips': 'ri-lightbulb-line',
+        'event': 'ri-calendar-event-line'
+      };
+
+      const typeLabels = {
+        'announcement': 'Announcement',
+        'alert': 'Alert',
+        'tips': 'Health Tips',
+        'event': 'Event'
+      };
+
+      const priorityLabels = {
+        'low': 'Low',
+        'medium': 'Medium',
+        'high': 'High',
+        'urgent': 'Urgent'
+      };
+
+      document.getElementById('previewIcon').innerHTML = `<i class="${typeIcons[currentNoticeType]}"></i>`;
+      document.getElementById('previewIcon').style.backgroundColor = selectedColor;
+      document.getElementById('previewTitle').textContent = title;
+      document.getElementById('previewMeta').textContent = `${typeLabels[currentNoticeType]} • ${priorityLabels[priority]} Priority`;
+      document.getElementById('previewContent').textContent = content;
+
+      let badgesHtml = `<span class="notice-preview-badge" style="background-color: ${selectedColor}; color: white;">${typeLabels[currentNoticeType]}</span>`;
+      badgesHtml += `<span class="notice-preview-badge" style="background-color: #f0f0f0; color: #666;">${priorityLabels[priority]} Priority</span>`;
+      document.getElementById('previewBadges').innerHTML = badgesHtml;
+    }
+
+    function updateCharCount() {
+      const content = document.getElementById('noticeContent').value;
+      document.getElementById('charCount').textContent = content.length;
+    }
+
+    function updateRecipientCount() {
+      let count = 0;
+      
+      if (document.getElementById('filterRegular').checked) count += 456;
+      if (document.getElementById('filterNew').checked) count += 234;
+      if (document.getElementById('filterInactive').checked) count += 155;
+
+      const type1 = document.getElementById('filterType1').checked;
+      const type2 = document.getElementById('filterType2').checked;
+      const gestational = document.getElementById('filterGestational').checked;
+
+      if (!type1 && !type2 && !gestational) {
+        count = 0;
+      }
+
+      document.getElementById('recipientCount').textContent = Math.min(count, 845);
+    }
+
+    function filterRecipients(category) {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
+    function toggleScheduling() {
+      const timing = document.querySelector('input[name="publish-timing"]:checked').value;
+      document.getElementById('scheduledDateTime').classList.toggle('show', timing === 'scheduled');
+      document.getElementById('recurringSchedule').classList.toggle('show', timing === 'recurring');
+    }
+
+    function publishNotice() {
+      const title = document.getElementById('noticeTitle').value;
+      const content = document.getElementById('noticeContent').value;
+      
+      if (!title.trim()) {
+        alert('Please enter a title');
+        return;
+      }
+      
+      if (!content.trim()) {
+        alert('Please enter content');
+        return;
+      }
+      
+      alert(`Notice Published!\n\nTitle: ${title}\nType: ${currentNoticeType}\nRecipients: 845`);
+      resetForm();
+    }
+
+    function sendNotice() {
+      const title = document.getElementById('noticeTitle').value;
+      
+      if (!title.trim()) {
+        alert('Please enter a notice title');
+        return;
+      }
+      
+      const channels = [];
+      if (document.getElementById('channelWhatsapp').checked) channels.push('WhatsApp');
+      if (document.getElementById('channelEmail').checked) channels.push('Email');
+      if (document.getElementById('channelApp').checked) channels.push('App');
+      if (document.getElementById('channelWebsite').checked) channels.push('Website');
+      
+      if (channels.length === 0) {
+        alert('Please select at least one channel');
+        return;
+      }
+      
+      alert(`Notice broadcasted via ${channels.join(', ')}\n\nRecipients: 845`);
+    }
+
+    function scheduleNotice() {
+      alert('Notice scheduled successfully!');
+    }
+
+    function saveDraft() {
+      alert('Notice saved as draft!');
+    }
+
+    function resetForm() {
+      document.getElementById('noticeTitle').value = '';
+      document.getElementById('noticeContent').value = '';
+      document.getElementById('priority').value = 'medium';
+      updatePreview();
+      updateCharCount();
+    }
+
+    // Initialize
+    updatePreview();
+    updateRecipientCount();
+  </script>
+
+</body>
+
+</html>
